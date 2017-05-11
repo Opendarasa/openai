@@ -24,8 +24,67 @@ app.get('/webhook/',function(req,res)
     {
         res.send(req.query['hub.challenge'])
     }
+    
+  if (req.body.object == "page") {
+    
+    req.body.entry.forEach(function(entry) {
+      
+      entry.messaging.forEach(function(event) {
+        if (event.postback) {
+          processPostback(event);
+        }
+      });
+    });
+
+    res.sendStatus(200);
+  }
     res.send('No Entry')
 })
+function processPostback(event) {
+  var senderId = event.sender.id;
+  var payload = event.postback.payload;
+
+  if (payload === "Greeting") {
+    // Get user's first name from the User Profile API
+    // and include it in the greeting
+    request({
+      url: "https://graph.facebook.com/v2.6/" + senderId,
+      qs: {
+        access_token: token,
+        fields: "first_name"
+      },
+      method: "GET"
+    }, function(error, response, body) {
+      var greeting = "";
+      if (error) {
+        console.log("Error getting user's name: " +  error);
+      } else {
+        var bodyObj = JSON.parse(body);
+        name = bodyObj.first_name;
+        greeting = "Hi " + name + ". ";
+      }
+      var message = greeting + "My name is izipay. I can tell you various details regarding movies. What movie would you like to know about?";
+      sendMessage(senderId, {text: message});
+    });
+  }
+}
+
+// sends message to user
+function sendMessage(recipientId, message) {
+  request({
+    url: "https://graph.facebook.com/v2.6/me/messages",
+    qs: {access_token: token},
+    method: "POST",
+    json: {
+      recipient: {id: recipientId},
+      message: message,
+    }
+  }, function(error, response, body) {
+    if (error) {
+      console.log("Error sending message: " + response.error);
+    }
+  });
+}
     
 app.post('/webhook', function (req, res) {
   var data = req.body;
@@ -56,21 +115,7 @@ app.post('/webhook', function (req, res) {
     res.sendStatus(200);
   }
 });
-function callThreadSettingsAPI(data) { //Thread Reference API
-request({
-uri: 'https://graph.facebook.com/v2.6/me/thread_settings',
-qs: { access_token: token },
-method: 'POST',
-json: data
 
-}, function (error, response, body) {
-if (!error && response.statusCode == 200) {
-  console.log("Thread Settings successfully changed!");
-} else {
-  console.error("Failed calling Thread Reference API", response.statusCode, response.statusMessage, body.error);
-}
-});  
-}
   
 function receivedMessage(event) {
  var senderID = event.sender.id;
