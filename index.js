@@ -72,7 +72,7 @@ function receivedMessage(event) {
 
   var messageText = " ";
   var messageAttachments = message.attachments;
-    var welcome="salut comment-allez "+senderName+"que puis je faire pour vous ?";
+    var welcomeText="salut comment-allez "+senderName+"que puis je faire pour vous ?";
 
   if (messageText) {
 
@@ -84,7 +84,8 @@ function receivedMessage(event) {
       
         break;
         case 'salut':
-            sendwelcomeMessage(senderID,welcome);
+            sendwelcomeMessage(senderID,welcomeText);
+            break;
 
       default:
         sendTextMessage(senderID, messageText);
@@ -153,13 +154,13 @@ function sendTextMessage(recipientId, messageText) {
 
   callSendAPI(messageData);
 }
-function sendwelcomeMessage(recipientId, welcome) {
+function sendwelcomeMessage(recipientId, welcomeText) {
   var messageData = {
     recipient: {
       id: recipientId
     },
     message: {
-      text: welcome
+      text: welcomeText
     }
   };
 
