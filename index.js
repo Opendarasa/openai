@@ -141,13 +141,13 @@ function sendGenericMessage(recipientId, messageText) {
 
   callSendAPI(messageData);
 }
-function sendTextMessage(recipientId, messageText) {
+function sendTextMessage(recipientId,senderName) {
   var messageData = {
     recipient: {
       id: recipientId
     },
     message: {
-      text: messageText
+      text: senderName
     }
   };
 
