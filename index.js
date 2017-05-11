@@ -1,8 +1,8 @@
-const expresss= require ('expresss')
+const expresss= require ('express')
 const bodyParser= require('body-parser')
 const request =require('request')
 
-const app=expresss
+const app=express
 
 app.set('port',(process.env.PORT||500))
 
