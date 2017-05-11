@@ -70,7 +70,7 @@ function receivedMessage(event) {
 
   var messageId = message.mid;
 
-  var messageText = " ";
+  var messageText = message.text;
   var messageAttachments = message.attachments;
     var welcomeText="salut comment-allez "+senderName+"que puis je faire pour vous ?";
 
@@ -84,7 +84,7 @@ function receivedMessage(event) {
       
         break;
         case 'salut':
-            sendwelcomeMessage(senderID,welcomeText);
+            sendwelcomeMessage(senderID,"salut comment ca va ?"+number);
             break;
 
       default:
