@@ -57,9 +57,9 @@ function processPostback(event) {
       } else {
         var bodyObj = JSON.parse(body);
         name = bodyObj.first_name;
-        greeting = "Hi " + name + ". ";
+        greeting = "Salut " + name + ". ";
       }
-      var message = greeting + "My name is SP Movie Bot. I can tell you various details regarding movies. What movie would you like to know about?";
+      var message = greeting + "Mon nom c'est Izipay , je suis a tes service pour payer tes factures , eau et électricité ou plutot tes transfer d'argent a tes proches.Que voudrais -tu que je fasse pour toi ?";
       sendMessage(senderId, {text: message});
     });
   }
