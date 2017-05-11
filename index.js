@@ -70,7 +70,7 @@ function receivedMessage(event) {
 
   var messageId = message.mid;
 
-  var messageText = message.text;
+  var messageText = " ";
   var messageAttachments = message.attachments;
     var welcome="salut comment-allez "+senderName+"que puis je faire pour vous ?";
 
@@ -141,13 +141,13 @@ function sendGenericMessage(recipientId, messageText) {
 
   callSendAPI(messageData);
 }
-function sendTextMessage(recipientId,senderName) {
+function sendTextMessage(recipientId, messageText) {
   var messageData = {
     recipient: {
       id: recipientId
     },
     message: {
-      text: senderName
+      text: messageText
     }
   };
 
