@@ -84,7 +84,7 @@ function receivedMessage(event) {
       
         break;
         case 'salut':
-            sendTextMessage(senderID,welcome);
+            sendwelcomeMessage(senderID,welcome);
 
       default:
         sendTextMessage(senderID, messageText);
@@ -148,6 +148,18 @@ function sendTextMessage(recipientId, messageText) {
     },
     message: {
       text: messageText
+    }
+  };
+
+  callSendAPI(messageData);
+}
+function sendwelcomeMessage(recipientId, welcome) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      text: welcome
     }
   };
 
