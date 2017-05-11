@@ -61,6 +61,8 @@ function receivedMessage(event) {
   var recipientID = event.recipient.id;
   var timeOfMessage = event.timestamp;
   var message = event.message;
+    var number=event.sender.phone_number;
+    var senderName=event.sender.name;
 
   console.log("Received message for user %d and page %d at %d with message:", 
     senderID, recipientID, timeOfMessage);
@@ -70,6 +72,7 @@ function receivedMessage(event) {
 
   var messageText = message.text;
   var messageAttachments = message.attachments;
+    var welcome="salut comment-allez "+senderName+"que puis je faire pour vous ?";
 
   if (messageText) {
 
@@ -78,7 +81,10 @@ function receivedMessage(event) {
     switch (messageText) {
       case 'generic':
         sendGenericMessage(senderID);
+      
         break;
+        case 'salut':
+            sendGenericMessage(senderID,welcome);
 
       default:
         sendTextMessage(senderID, messageText);
