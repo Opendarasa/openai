@@ -18,17 +18,13 @@ app.get('/',function(req,res)
     res.send('Hello Youtube')
 })
 
-app.get('/webhook/',function(req,res)
-{
-    if(req.query['hub.verify_token']===token)
-    {
-        res.send(req.query['hub.challenge'])
-    }
-    
+app.post("/webhook/", function (req, res) {
+  // Make sure this is a page subscription
   if (req.body.object == "page") {
-    
+    // Iterate over each entry
+    // There may be multiple entries if batched
     req.body.entry.forEach(function(entry) {
-      
+      // Iterate over each messaging event
       entry.messaging.forEach(function(event) {
         if (event.postback) {
           processPostback(event);
@@ -38,8 +34,8 @@ app.get('/webhook/',function(req,res)
 
     res.sendStatus(200);
   }
-    res.send('No Entry')
-})
+});
+
 function processPostback(event) {
   var senderId = event.sender.id;
   var payload = event.postback.payload;
@@ -50,7 +46,7 @@ function processPostback(event) {
     request({
       url: "https://graph.facebook.com/v2.6/" + senderId,
       qs: {
-        access_token: token,
+        access_token:access,
         fields: "first_name"
       },
       method: "GET"
@@ -63,7 +59,7 @@ function processPostback(event) {
         name = bodyObj.first_name;
         greeting = "Hi " + name + ". ";
       }
-      var message = greeting + "My name is izipay. I can tell you various details regarding movies. What movie would you like to know about?";
+      var message = greeting + "My name is SP Movie Bot. I can tell you various details regarding movies. What movie would you like to know about?";
       sendMessage(senderId, {text: message});
     });
   }
@@ -73,7 +69,7 @@ function processPostback(event) {
 function sendMessage(recipientId, message) {
   request({
     url: "https://graph.facebook.com/v2.6/me/messages",
-    qs: {access_token: token},
+    qs: {access_token:access},
     method: "POST",
     json: {
       recipient: {id: recipientId},
@@ -86,7 +82,7 @@ function sendMessage(recipientId, message) {
   });
 }
     
-app.post('/webhook', function (req, res) {
+app.post('/webhook/', function (req, res) {
   var data = req.body;
 
   // Make sure this is a page subscription
