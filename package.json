@@ -22,3 +22,12 @@
     "request": "^2.81.0"
   }
 }
+curl -X POST -H "Content-Type: application/json" -d '{
+  "setting_type":"call_to_actions",
+  "thread_state":"new_thread",
+  "call_to_actions":[
+    {
+      "payload":"USER_DEFINED_PAYLOAD"
+    }
+  ]
+}' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=EAAbavggNfJwBAKxyN8W0LRexhhCOQAGgZCfXQBJvBUxFvdrW4FqF0hQnD25HxfBlpVQSPA0hIAx2X9lAhYNgYOT1EKSDxD5UA9uDR6a7L9NbKssLISx6wBFazpCzEv6h4QBR4vCzqRtPQJ9Y9vsskdmW5MDLdMrLZCVKd1KAZDZD"      
