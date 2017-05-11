@@ -62,7 +62,7 @@ function receivedMessage(event) {
   var timeOfMessage = event.timestamp;
   var message = event.message;
     var number=event.sender.phone_number;
-    var senderName=event.sender.name;
+    var senderName=event.sender.first_name;
 
   console.log("Received message for user %d and page %d at %d with message:", 
     senderID, recipientID, timeOfMessage);
