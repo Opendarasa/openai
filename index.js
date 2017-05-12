@@ -196,7 +196,7 @@ function processPostback(event) {
         
            var messageData = {
     recipient: {
-      id: recipientId
+      id: senderId
     },
     message: {
       attachment: {
