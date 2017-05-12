@@ -220,10 +220,10 @@ function processPostback(event) {
       }
     }
   }; 
-      
+    callSendAPI(messageData);  
     });
       
-      callSendAPI(messageData);
+      
   
   }
 }
