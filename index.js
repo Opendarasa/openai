@@ -190,6 +190,7 @@ function processPostback(event) {
         var bodyObj = JSON.parse(body);
         name = bodyObj.first_name;
         greeting = "Salut M. " + name + ". ";
+          
       }
       var message = greeting + "Mon nom c'est izipay , je suis a vos services pour tous vos tranfer d'argent et vos paiement de factures.Que direz vous faire aujourd'hui ?";
       //sendMessage(senderId, {text: message});
@@ -207,7 +208,7 @@ function processPostback(event) {
             buttons: [{
               type: "postback",
               title: "Transfer d'argent",
-              payload: "Taransfer"
+              payload: "Transfer"
             }, {
               type: "postback",
               title: "Payer vos Factures",
@@ -223,24 +224,63 @@ function processPostback(event) {
     });
   
   }
+    else if(payload==="Transfer")
+        {
+              request({
+      url: "https://graph.facebook.com/v2.6/" + senderId,
+      qs: {
+        access_token: access,
+        fields: "first_name"
+      },
+      method: "GET"
+    }, function(error, response, body) {
+      
+      if (error) {
+        console.log("Error getting user's name: " +  error);
+      } else {
+        var bodyObject = JSON.parse(body);
+        firstname = bodyObject.first_name;
+        
+          
+      }
+      var message = "Quel transfer Désirez vous Faire"+firstname+"?";
+      //sendMessage(senderId, {text: message});
+        //sendGenericMessage(senderId);
+          var Data = {
+    recipient: {
+      id: senderId
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "button",
+            text:message,
+            buttons: [{
+              type: "postback",
+              title: "local",
+              payload: "local"
+            }, {
+              type: "postback",
+              title: "International",
+              payload: "International"
+            }
+        
+              ]
+          }
+      }
+    }
+  };
+        callSendAPI(Data);
+    });
+            
+
+        
+        }
 }
 
 // sends message to user
-function sendMessage(recipientId, message) {
-  request({
-    url: "https://graph.facebook.com/v2.6/me/messages",
-    qs: {access_token:access},
-    method: "POST",
-    json: {
-      recipient: {id: recipientId},
-      message: message,
-    }
-  }, function(error, response, body) {
-    if (error) {
-      console.log("Error sending message: " + response.error);
-    }
-  });
-}
+
 
 //post handling function ends 
 
