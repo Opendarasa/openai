@@ -193,9 +193,37 @@ function processPostback(event) {
         greeting = "Salut M. " + name + ". ";
       }
       var message = greeting + "Mon nom c'est izipay , je suis a vos services pour tous vos tranfer d'argent et vos paiement de factures.Que direz vous faire aujourd'hui ?";
-      //sendMessage(senderId, {text: message});
-        sendGenericMessage(senderId,{text:message});
+        
+           var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      attachment: {
+        type: "template",
+          text:message,
+        payload: {
+          template_type: "button",
+    
+            buttons: [{
+              type: "postback",
+              title: "Transfer d'argent",
+              payload: "Taransfer"
+            }, {
+              type: "postback",
+              title: "Payer vos Factures",
+              payload: "Factures"
+            }
+        
+              ]
+          }
+      }
+    }
+  }; 
+      
     });
+      
+      callSendAPI(messageData);
   
   }
 }
