@@ -17,91 +17,48 @@ app.get('/',function(req,res)
     
     res.send('Hello Youtube')
 })
-app.get("/webhook", function (req, res) {
-  if (req.query["hub.verify_token"] === token) {
-    console.log("Verified webhook");
-    res.status(200).send(req.query["hub.challenge"]);
-  } else {
-    console.error("Verification failed. The tokens do not match.");
-    res.sendStatus(403);
-  }
-    res.send('No Entry');
-});
 
-app.post("/webhook/", function (req, res) {
+app.get('/webhook/',function(req,res)
+{
+    if(req.query['hub.verify_token']===token)
+    {
+        res.send(req.query['hub.challenge'])
+    }
+    
+    res.send('No Entry')
+})
+    
+app.post('/webhook', function (req, res) {
+  var data = req.body;
+
   // Make sure this is a page subscription
-  if (req.body.object == "page") {
-    // Iterate over each entry
-    // There may be multiple entries if batched
-    req.body.entry.forEach(function(entry) {
+  if (data.object === 'page') {
+
+    // Iterate over each entry - there may be multiple if batched
+    data.entry.forEach(function(entry) {
+      var pageID = entry.id;
+      var timeOfEvent = entry.time;
+
       // Iterate over each messaging event
       entry.messaging.forEach(function(event) {
-        if (event.postback) {
-          processPostback(event);
-        }
-          else if(event.message)
-              {
-                  receivedMessage(event);
-              }
-          else {
+        if (event.message) {
+          receivedMessage(event);
+        } else {
           console.log("Webhook received unknown event: ", event);
         }
-          
       });
     });
 
+    // Assume all went well.
+    //
+    // You must send back a 200, within 20 seconds, to let us know
+    // you've successfully received the callback. Otherwise, the request
+    // will time out and we will keep trying to resend.
     res.sendStatus(200);
   }
 });
 
-function processPostback(event) {
-  var senderId = event.sender.id;
-  var payload = event.postback.payload;
-
-  if (payload === "Greeting") {
-    // Get user's first name from the User Profile API
-    // and include it in the greeting
-    request({
-      url: "https://graph.facebook.com/v2.6/" + senderId,
-      qs: {
-        access_token:access,
-        fields: "first_name"
-      },
-      method: "GET"
-    }, function(error, response, body) {
-      var greeting = "";
-      if (error) {
-        console.log("Error getting user's name: " +  error);
-      } else {
-        var bodyObj = JSON.parse(body);
-        name = bodyObj.first_name;
-        greeting = "Salut " + name + ". ";
-      }
-      var message = greeting + "Mon nom c'est Izipay , je suis a tes service pour payer tes factures , eau et électricité ou plutot tes transfer d'argent a tes proches.Que voudrais -tu que je fasse pour toi ?";
-      sendMessage(senderId, {text: message});
-    });
-  }
-}
-
-// sends message to user
-function sendMessage(recipientId, message) {
-  request({
-    url: "https://graph.facebook.com/v2.6/me/messages",
-    qs: {access_token:access},
-    method: "POST",
-    json: {
-      recipient: {id: recipientId},
-      message: message,
-    }
-  }, function(error, response, body) {
-    if (error) {
-      console.log("Error sending message: " + response.error);
-    }
-  });
-}
- 
-
-  
+ //Handle Received Message Function start 
 function receivedMessage(event) {
  var senderID = event.sender.id;
   var recipientID = event.recipient.id;
@@ -129,7 +86,7 @@ function receivedMessage(event) {
       
         break;
         case 'salut':
-            sendwelcomeMessage(senderID,"salut comment ca va ?"+number);
+            sendwelcomeMessage(senderID,"salut comment ca va ?");
             break;
 
       default:
@@ -139,6 +96,9 @@ function receivedMessage(event) {
     sendTextMessage(senderID, "Message with attachment received");
   }
 }
+//Handle Received Message end 
+
+//Send generic Message Function start 
 function sendGenericMessage(recipientId, messageText) {
   // To be expanded in later sections
     
@@ -187,6 +147,10 @@ function sendGenericMessage(recipientId, messageText) {
 
   callSendAPI(messageData);
 }
+//Send generic Message end 
+
+
+//Send default Text messag e function  start//
 function sendTextMessage(recipientId, messageText) {
   var messageData = {
     recipient: {
@@ -199,6 +163,8 @@ function sendTextMessage(recipientId, messageText) {
 
   callSendAPI(messageData);
 }
+// Send default Text Message end //
+//####### Send a Welcome Message start#######//
 function sendwelcomeMessage(recipientId, welcomeText) {
   var messageData = {
     recipient: {
@@ -211,6 +177,9 @@ function sendwelcomeMessage(recipientId, welcomeText) {
 
   callSendAPI(messageData);
 }
+// Send Welcome Message End //
+
+//Call send Message API Function start//
 function callSendAPI(messageData) {
   request({
     uri: 'https://graph.facebook.com/v2.6/me/messages',
@@ -232,9 +201,11 @@ function callSendAPI(messageData) {
     }
   });  
 }
+// Call Send Message ApO End 
+
 app.listen(app.get('port'),function()
 {
-    
+
     console.log('running on port',app.get('port'))
 })
 
