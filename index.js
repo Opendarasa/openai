@@ -366,6 +366,8 @@ function processPostback(event) {
         payload: {
           template_type: "generic",
           elements: [{
+              title:"Envoyer de l'argent vers le Burkina",
+              subtitle:"Utilisez Western Union ",
             item_url: "https://www.westernunion.com/us/en/send-money/app/start",               
             image_url: "https://seeklogo.com/images/W/western-union-logo-4A698A21BE-seeklogo.com.gif",
             buttons: [{
@@ -379,7 +381,7 @@ function processPostback(event) {
           }, {
             type:"web_url",
             title: "MoneyGram",
-            subtitle: "Envoyer Par Money Gram",
+            subtitle: "Envoyer Par MoneyGram",
             item_url: "https://secure.moneygram.com/send",               
             image_url: "http://logosolusa.com/wp-content/uploads/parser/MoneyGram-Logo-1.jpg",
             buttons: [{
