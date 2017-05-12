@@ -114,10 +114,9 @@ function sendGenericMessage(recipientId, messageText) {
     message: {
       attachment: {
         type: "template",
-          text:messageText,
         payload: {
           template_type: "button",
-    
+            text:" Cliquez sur Envoyer Pour faire un Transfer et Payer Facture pour payer vos Factures!",
             buttons: [{
               type: "postback",
               title: "Transfer d'argent",
@@ -193,18 +192,18 @@ function processPostback(event) {
         greeting = "Salut M. " + name + ". ";
       }
       var message = greeting + "Mon nom c'est izipay , je suis a vos services pour tous vos tranfer d'argent et vos paiement de factures.Que direz vous faire aujourd'hui ?";
-        
-           var messageData = {
+      //sendMessage(senderId, {text: message});
+        //sendGenericMessage(senderId);
+          var messageData = {
     recipient: {
       id: senderId
     },
     message: {
       attachment: {
         type: "template",
-          text:message,
         payload: {
           template_type: "button",
-    
+            text:message,
             buttons: [{
               type: "postback",
               title: "Transfer d'argent",
@@ -219,11 +218,9 @@ function processPostback(event) {
           }
       }
     }
-  }; 
-    callSendAPI(messageData);  
+  };
+        callSendAPI(messageData);
     });
-      
-      
   
   }
 }
