@@ -379,7 +379,7 @@ function processPostback(event) {
                 fallback_url:"https://www.westernunion.com/us/en/price-estimator/continue.html" 
             }],
           }, {
-            type:"web_url",
+            
             title: "MoneyGram",
             subtitle: "Envoyer Par MoneyGram",
             item_url: "https://secure.moneygram.com/send",               
