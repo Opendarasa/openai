@@ -116,7 +116,7 @@ function sendGenericMessage(recipientId, messageText) {
         type: "template",
         payload: {
           template_type: "button",
-            text:" Cliquez sur Envoyer Pour faire un Transfer et Payer Facture pour payer vos Factures!"
+            text:" Cliquez sur Envoyer Pour faire un Transfer et Payer Facture pour payer vos Factures!",
             buttons: [{
               type: "postback",
               title: "Faire un Transfer d'argent",
@@ -124,7 +124,7 @@ function sendGenericMessage(recipientId, messageText) {
             }, {
               type: "postback",
               title: "Payer vos Factures",
-              payload: "Factures",
+              payload: "Factures"
             }
         
               ]
