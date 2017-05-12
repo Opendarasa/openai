@@ -43,7 +43,12 @@ app.post('/webhook', function (req, res) {
       entry.messaging.forEach(function(event) {
         if (event.message) {
           receivedMessage(event);
-        } else {
+        }
+          else if (event.postback)
+              {
+                  processPostback(event);
+              }
+              else {
           console.log("Webhook received unknown event: ", event);
         }
       });
@@ -178,6 +183,55 @@ function sendwelcomeMessage(recipientId, welcomeText) {
   callSendAPI(messageData);
 }
 // Send Welcome Message End //
+
+//postback handling function start
+function processPostback(event) {
+  var senderId = event.sender.id;
+  var payload = event.postback.payload;
+
+  if (payload === "Greeting") {
+    // Get user's first name from the User Profile API
+    // and include it in the greeting
+    request({
+      url: "https://graph.facebook.com/v2.6/" + senderId,
+      qs: {
+        access_token: access,
+        fields: "first_name"
+      },
+      method: "GET"
+    }, function(error, response, body) {
+      var greeting = "";
+      if (error) {
+        console.log("Error getting user's name: " +  error);
+      } else {
+        var bodyObj = JSON.parse(body);
+        name = bodyObj.first_name;
+        greeting = "Hi " + name + ". ";
+      }
+      var message = greeting + "My name is SP Movie Bot. I can tell you various details regarding movies. What movie would you like to know about?";
+      sendMessage(senderId, {text: message});
+    });
+  }
+}
+
+// sends message to user
+function sendMessage(recipientId, message) {
+  request({
+    url: "https://graph.facebook.com/v2.6/me/messages",
+    qs: {access_token:access},
+    method: "POST",
+    json: {
+      recipient: {id: recipientId},
+      message: message,
+    }
+  }, function(error, response, body) {
+    if (error) {
+      console.log("Error sending message: " + response.error);
+    }
+  });
+}
+
+//post handling function ends 
 
 //Call send Message API Function start//
 function callSendAPI(messageData) {
