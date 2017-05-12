@@ -171,7 +171,7 @@ function sendwelcomeMessage(recipientId, welcomeText) {
 function processPostback(event) {
   var senderId = event.sender.id;
   var payload = event.postback.payload;
-
+// Salutation payload 
   if (payload === "Greeting") {
     // Get user's first name from the User Profile API
     // and include it in the greeting
@@ -224,6 +224,7 @@ function processPostback(event) {
     });
   
   }
+    // Transfer d'argent payload 
     else if(payload==="Transfer")
         {
               request({
@@ -276,6 +277,63 @@ function processPostback(event) {
             
 
         
+        }
+    //Factures Payloads 
+    else if(payload==="Factures")
+        {
+                     request({
+      url: "https://graph.facebook.com/v2.6/" + senderId,
+      qs: {
+        access_token: access,
+        fields: "first_name"
+      },
+      method: "GET"
+    }, function(error, response, body) {
+      
+      if (error) {
+        console.log("Error getting user's name: " +  error);
+      } else {
+        var bodyObject = JSON.parse(body);
+        firstname = bodyObject.first_name;
+        
+          
+      }
+      var message = "Quelle factures désirez vous payer"+firstname+"?";
+      //sendMessage(senderId, {text: message});
+        //sendGenericMessage(senderId);
+          var Data = {
+    recipient: {
+      id: senderId
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "button",
+            text:message,
+            buttons: [{
+              type: "postback",
+              title: "Onatel",
+              payload: "Onatel"
+            }, {
+              type: "postback",
+              title: "Sonabel",
+              payload: "Sonabel"
+            },
+            {
+                type:"postback",
+                title:"Onea",
+                payload:"Onea"
+            }
+        
+              ]
+          }
+      }
+    }
+  };
+        callSendAPI(Data);
+    }); 
+            
         }
 }
 
