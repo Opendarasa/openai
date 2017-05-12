@@ -244,7 +244,7 @@ function processPostback(event) {
         
           
       }
-      var message = "Quel transfer Désirez vous Faire"+firstname+"?";
+      var message = "Quel transfer Désirez vous Faire "+firstname+"?";
       //sendMessage(senderId, {text: message});
         //sendGenericMessage(senderId);
           var Data = {
@@ -298,7 +298,7 @@ function processPostback(event) {
         
           
       }
-      var message = "Quelle factures désirez vous payer"+firstname+"?";
+      var message = "Quelle factures désirez vous payer "+firstname+"?";
       //sendMessage(senderId, {text: message});
         //sendGenericMessage(senderId);
           var Data = {
@@ -334,6 +334,69 @@ function processPostback(event) {
         callSendAPI(Data);
     }); 
             
+        }
+    //Transfer Local
+    else if(payload==="local")
+        {
+   var messageData=
+       {
+           recipient:
+           {
+               id:senderId
+           },
+           message:{
+               text:"Entrez le numéro de téléphone du receveur"
+           }
+           
+       };
+            callSendAPI(messageData)
+        
+        }
+    //Transfer international
+    
+    else if (payload==="International")
+        {
+           var messageData = {
+    recipient: {
+      id: senderId
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [{
+            item_url: "https://www.westernunion.com/us/en/send-money/app/start",               
+            image_url: "https://seeklogo.com/images/W/western-union-logo-4A698A21BE-seeklogo.com.gif",
+            buttons: [{
+              type: "web_url",
+              url: "https://www.westernunion.com/us/en/send-money/app/start",
+              title: "Wester Union",
+            webview_height_ratio:"full",
+            messenger_extensions:true,
+                fallback_url:"https://www.westernunion.com/us/en/price-estimator/continue.html/fallback" 
+            }],
+          }, {
+            type:"web_url",
+            title: "MoneyGram",
+            subtitle: "",
+            item_url: "https://secure.moneygram.com/send",               
+            image_url: "http://logosolusa.com/wp-content/uploads/parser/MoneyGram-Logo-1.jpg",
+            buttons: [{
+              type: "web_url",
+              url: "https://secure.moneygram.com/send",
+              title: "Moneygram",
+                 webview_height_ratio:"full",
+            messenger_extensions:true
+            }]
+          }]
+        }
+      }
+    }
+  };  
+
+  callSendAPI(messageData);
+        
         }
 }
 
