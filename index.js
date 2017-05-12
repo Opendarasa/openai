@@ -114,6 +114,7 @@ function sendGenericMessage(recipientId, messageText) {
     message: {
       attachment: {
         type: "template",
+          text:messageText,
         payload: {
           template_type: "button",
     
@@ -192,8 +193,8 @@ function processPostback(event) {
         greeting = "Salut M. " + name + ". ";
       }
       var message = greeting + "Mon nom c'est izipay , je suis a vos services pour tous vos tranfer d'argent et vos paiement de factures.Que direz vous faire aujourd'hui ?";
-      sendMessage(senderId, {text: message});
-        sendGenericMessage(senderId);
+      //sendMessage(senderId, {text: message});
+        sendGenericMessage(senderId,{text:message});
     });
   
   }
