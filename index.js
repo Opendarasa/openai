@@ -374,12 +374,12 @@ function processPostback(event) {
               title: "Wester Union",
             webview_height_ratio:"full",
             messenger_extensions:true,
-                fallback_url:"https://www.westernunion.com/us/en/price-estimator/continue.html/fallback" 
+                fallback_url:"https://www.westernunion.com/us/en/price-estimator/continue.html" 
             }],
           }, {
             type:"web_url",
             title: "MoneyGram",
-            subtitle: "",
+            subtitle: "Envoyer Par Money Gram",
             item_url: "https://secure.moneygram.com/send",               
             image_url: "http://logosolusa.com/wp-content/uploads/parser/MoneyGram-Logo-1.jpg",
             buttons: [{
