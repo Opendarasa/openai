@@ -17,6 +17,16 @@ app.get('/',function(req,res)
     
     res.send('Hello Youtube')
 })
+app.get("/webhook/", function (req, res) {
+  if (req.query["hub.verify_token"] === token) {
+    console.log("Verified webhook");
+    res.status(200).send(req.query["hub.challenge"]);
+  } else {
+    console.error("Verification failed. The tokens do not match.");
+    res.sendStatus(403);
+  }
+    res.send('No Entry');
+});
 
 app.post("/webhook/", function (req, res) {
   // Make sure this is a page subscription
@@ -89,8 +99,7 @@ function sendMessage(recipientId, message) {
     }
   });
 }
-    
-
+ 
 
   
 function receivedMessage(event) {
@@ -225,18 +234,7 @@ function callSendAPI(messageData) {
 }
 app.listen(app.get('port'),function()
 {
-    function createGetStarted() {
-var data = {
-setting_type: "call_to_actions",
-thread_state: "new_thread",
-call_to_actions:[
- {
-  payload:"getStarted"
-}
-]
-};
-callThreadSettingsAPI(data);
-}
+    
     console.log('running on port',app.get('port'))
 })
 
