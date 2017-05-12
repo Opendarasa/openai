@@ -17,7 +17,7 @@ app.get('/',function(req,res)
     
     res.send('Hello Youtube')
 })
-app.get("/webhook/", function (req, res) {
+app.get("/webhook", function (req, res) {
   if (req.query["hub.verify_token"] === token) {
     console.log("Verified webhook");
     res.status(200).send(req.query["hub.challenge"]);
