@@ -489,7 +489,7 @@ function processPostback(event) {
           {
               template_type:"button",
               text:"Ou preferez vous les develoveppements web /android /ios ",
-              button:[
+              buttons:[
                   {
                       type:"postback",
                       title:"web",
