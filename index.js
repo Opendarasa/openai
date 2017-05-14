@@ -69,7 +69,7 @@ app.post('/webhook', function (req, res) {
 
 
  //Handle Received Message Function start 
-function receivedMessage(event) {
+/*function receivedMessage(event) {
  var senderID = event.sender.id;
   var recipientID = event.recipient.id;
   var timeOfMessage = event.timestamp;
@@ -104,8 +104,7 @@ function receivedMessage(event) {
     }
   } else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
-  }
-}
+  }*/
 //Handle Received Message end 
 
 //Send generic Message Function start 
@@ -144,7 +143,7 @@ function sendGenericMessage(recipientId, messageText) {
 
 
 //Send default Text messag e function  start//
-function sendTextMessage(recipientId, messageText) {
+/*function sendTextMessage(recipientId, messageText) {
   var messageData = {
     recipient: {
       id: recipientId
@@ -155,10 +154,10 @@ function sendTextMessage(recipientId, messageText) {
   };
 
   callSendAPI(messageData);
-}
+}*/
 // Send default Text Message end //
 //####### Send a Welcome Message start#######//
-function sendwelcomeMessage(recipientId, welcomeText) {
+/*function sendwelcomeMessage(recipientId, welcomeText) {
   var messageData = {
     recipient: {
       id: recipientId
@@ -169,7 +168,7 @@ function sendwelcomeMessage(recipientId, welcomeText) {
   };
 
   callSendAPI(messageData);
-}
+}*/
 // Send Welcome Message End //
 
 //postback handling function start
@@ -212,12 +211,12 @@ function processPostback(event) {
             text:message,
             buttons: [{
               type: "postback",
-              title: "Transfer d'argent",
-              payload: "Transfer"
+              title: "Cours",
+              payload: "Cours"
             }, {
               type: "postback",
-              title: "Payer vos Factures",
-              payload: "Factures"
+              title: "Juste Causer",
+              payload: "Causer"
             }
         
               ]
@@ -230,7 +229,7 @@ function processPostback(event) {
   
   }
     // Transfer d'argent payload 
-    else if(payload==="Transfer")
+    else if(payload==="Cours")
         {
               request({
       url: "https://graph.facebook.com/v2.6/" + senderId,
@@ -249,7 +248,7 @@ function processPostback(event) {
         
           
       }
-      var message = "Quel transfer Désirez vous Faire "+firstname+"?";
+      var message = "Quel Cours désirez-vous suivre "+firstname+"?";
       //sendMessage(senderId, {text: message});
         //sendGenericMessage(senderId);
           var Data = {
@@ -264,12 +263,12 @@ function processPostback(event) {
             text:message,
             buttons: [{
               type: "postback",
-              title: "local",
-              payload: "local"
+              title: "Maths",
+              payload: "Maths"
             }, {
               type: "postback",
-              title: "International",
-              payload: "International"
+              title: "Physique",
+              payload: "Physique"
             }
         
               ]
@@ -284,7 +283,7 @@ function processPostback(event) {
         
         }
     //Factures Payloads 
-    else if(payload==="Factures")
+    else if(payload==="Causer")
         {
                      request({
       url: "https://graph.facebook.com/v2.6/" + senderId,
@@ -303,7 +302,7 @@ function processPostback(event) {
         
           
       }
-      var message = "Quelle factures désirez vous payer "+firstname+"?";
+      var message = "Causons alors  "+firstname+"! dis mois quelque chose";
       //sendMessage(senderId, {text: message});
         //sendGenericMessage(senderId);
           var Data = {
@@ -311,29 +310,7 @@ function processPostback(event) {
       id: senderId
     },
     message: {
-      attachment: {
-        type: "template",
-        payload: {
-          template_type: "button",
-            text:message,
-            buttons: [{
-              type: "postback",
-              title: "Onatel",
-              payload: "Onatel"
-            }, {
-              type: "postback",
-              title: "Sonabel",
-              payload: "Sonabel"
-            },
-            {
-                type:"postback",
-                title:"Onea",
-                payload:"Onea"
-            }
-        
-              ]
-          }
-      }
+    text:message
     }
   };
         callSendAPI(Data);
@@ -341,7 +318,7 @@ function processPostback(event) {
             
         }
     //Transfer Local
-    else if(payload==="local")
+    else if(payload==="Maths")
         {
    var messageData=
        {
@@ -349,9 +326,26 @@ function processPostback(event) {
            {
                id:senderId
            },
-           message:{
-               text:"Entrez le numéro de téléphone du receveur"
-           }
+            message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "button",
+            text:"que désirez vous ?",
+            buttons: [{
+              type: "postback",
+              title: "Formules",
+              payload: "Formules"
+            }, {
+              type: "postback",
+              title: "énoncés",
+              payload: "énoncés"
+            }
+        
+              ]
+          }
+      }
+    }
            
        };
             callSendAPI(messageData)
@@ -359,9 +353,39 @@ function processPostback(event) {
         }
     //Transfer international
     
-    else if (payload==="International")
+    else if (payload==="Physique")
         {
-           var messageData = {
+            
+             var messageData=
+       {
+           recipient:
+           {
+               id:senderId
+           },
+            message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "button",
+            text:"que désirez vous ?",
+            buttons: [{
+              type: "postback",
+              title: "Formules",
+              payload: "Formules"
+            }, {
+              type: "postback",
+              title: "énoncés",
+              payload: "énoncés"
+            }
+        
+              ]
+          }
+      }
+    }
+           
+       };
+            
+           /*var messageData = {
     recipient: {
       id: senderId
     },
@@ -400,14 +424,14 @@ function processPostback(event) {
         }
       }
     }
-  };  
+  }; */ 
 
   callSendAPI(messageData);
         
         }
     // Onatel payload 
     
-    else if (payload==="Onatel")
+    else if (payload==="Formules")
         {
             var messageData=
                 {
@@ -417,7 +441,7 @@ function processPostback(event) {
                     },
                     message:
                     {
-                        text:"Veuillez Entrez votre nom et Prénom et le numero de facture"
+                        text:"Quelle formule cherchez-vous?"
                     }
                 };
             callSendAPI(messageData);
