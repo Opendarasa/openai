@@ -269,6 +269,11 @@ function processPostback(event) {
               type: "postback",
               title: "Physique",
               payload: "Physique"
+            },
+            {
+                type:"postback",
+                title:"Informatique",
+                payload:"Informatique"
             }
         
               ]
@@ -385,46 +390,6 @@ function processPostback(event) {
            
        };
             
-           /*var messageData = {
-    recipient: {
-      id: senderId
-    },
-    message: {
-      attachment: {
-        type: "template",
-        payload: {
-          template_type: "generic",
-          elements: [{
-              title:"Envoyer de l'argent vers le Burkina",
-              subtitle:"Utilisez Western Union ",
-            item_url: "https://www.westernunion.com/us/en/send-money/app/start",               
-            image_url: "https://seeklogo.com/images/W/western-union-logo-4A698A21BE-seeklogo.com.gif",
-            buttons: [{
-              type: "web_url",
-              url: "https://www.westernunion.com/us/en/send-money/app/start",
-              title: "Wester Union",
-            webview_height_ratio:"full",
-            messenger_extensions:true,
-                fallback_url:"https://www.westernunion.com/us/en/price-estimator/continue.html" 
-            }],
-          }, {
-            
-            title: "MoneyGram",
-            subtitle: "Envoyer Par MoneyGram",
-            item_url: "https://secure.moneygram.com/send",               
-            image_url: "http://logosolusa.com/wp-content/uploads/parser/MoneyGram-Logo-1.jpg",
-            buttons: [{
-              type: "web_url",
-              url: "https://secure.moneygram.com/send",
-              title: "Moneygram",
-                 webview_height_ratio:"full",
-            messenger_extensions:true
-            }]
-          }]
-        }
-      }
-    }
-  }; */ 
 
   callSendAPI(messageData);
         
@@ -445,6 +410,174 @@ function processPostback(event) {
                     }
                 };
             callSendAPI(messageData);
+            
+        }
+    else if (payload==="énoncés")
+        {
+            var messageData=
+                {
+                    recipient:
+                    {
+                      id:senderId  
+                    },
+                    message:
+                    {
+                        text:"Quelle énoncés cherchez-vous?"
+                    }
+                };
+            callSendAPI(messageData);
+            
+        }
+    else if(payload==="Informatique")
+        {
+            var messageData=
+       {
+           recipient:
+           {
+               id:senderId
+           },
+            message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "button",
+            text:"quel  désirez vous ?",
+            buttons: [{
+              type: "postback",
+              title: "Cours en Ligne",
+              payload: "Online"
+            }, {
+              type: "postback",
+              title: "Algorithmes",
+              payload: "Algos"
+            }
+        
+              ]
+          }
+      }
+    }
+           
+       };
+            callSendAPI(messageData)
+            
+        }
+    else if (payload==="Online")
+        {
+              var messageData=
+       {
+           recipient:
+           {
+               id:senderId
+           },
+            message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "button",
+            text:"quel cours désirez vous ?",
+            buttons: [{
+              type: "postback",
+              title: "C",
+              payload: "Clanguage"
+            }, {
+              type: "postback",
+              title: "C++",
+              payload: "Cplus"
+            },
+              {
+                  type:"postback",
+                  title:"Web",
+                  payload:"Web"
+              },
+                {
+                    type:"postback",
+                    title:"Appli",
+                    payload:"mobile"
+                }
+        
+              ]
+          }
+      }
+    }
+           
+       };
+            callSendAPI(messageData) 
+            
+        }
+    else if (payload==="Algos")
+        {
+            var messageData=
+                {
+                    recipient:
+                    {
+                      id:senderId  
+                    },
+                    message:
+                    {
+                        text:"Entrez  le nom de l'Algo que vous  cherchez-vous plus le language de programation  ex : prime numbers c++."
+                    }
+                };
+            callSendAPI(messageData);
+            
+        }
+    else if (payload==="Clanguage")
+        {
+            
+                    var messageData = {
+    recipient: {
+      id: senderId
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [{
+              title:"Programation C pour débuteur",
+              subtitle:"Apprenenz la Programation c de zero à hero ",
+            item_url: "https://openclassrooms.com/courses/apprenez-a-programmer-en-c",               
+            image_url: "https://ieee-link.org/wplink/wp-content/uploads/2015/08/C-program-logo-techseventy.jpg",
+            buttons: [{
+              type: "web_url",
+              url: "https://openclassrooms.com/courses/apprenez-a-programmer-en-c",
+              title: "C débutant",
+            webview_height_ratio:"full",
+            messenger_extensions:true,
+                fallback_url:"https://openclassrooms.com/courses/apprenez-a-programmer-en-c" 
+            },
+            {
+                type:"postback",
+                title:"Souscrire",
+                payload:"Cdebutant"
+                
+            }
+                     
+            ],
+          }, {
+            
+            title: "Programation C avancé",
+            subtitle: "renforcer votre niveau de programation C",
+            item_url: "http://emmanuel-delahaye.developpez.com/tutoriels/c/posix-threads-c/",               
+            image_url: "http://www.interskill.com.au/wp-content/uploads/2014/01/c-programming-introduction-540x272.jpg",
+            buttons: [{
+              type: "web_url",
+              url: "http://emmanuel-delahaye.developpez.com/tutoriels/c/posix-threads-c/",
+              title: "C Avancé",
+                 webview_height_ratio:"full",
+            messenger_extensions:true
+            },
+             {
+                type:"postback",
+                title:"Souscrire",
+                payload:"Cavance"
+                
+            }
+             ]
+          }]
+        }
+      }
+    }
+  };
             
         }
 }
