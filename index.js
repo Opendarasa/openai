@@ -1,6 +1,8 @@
 const express= require ('express')
 const bodyParser= require('body-parser')
 const request =require('request')
+const apiaiApp= require('apiai')(90b3e04e3f5c46098831410ade6fcb8b)
+ 
 
 const app=express()
 const token= process.env.FB_VERIFY_TOKEN
@@ -14,6 +16,7 @@ app.use(bodyParser.json())
 
 app.get('/',function(req,res)
 {
+    
     
     res.send('Hello Youtube')
 })
@@ -42,7 +45,7 @@ app.post('/webhook', function (req, res) {
       // Iterate over each messaging event
       entry.messaging.forEach(function(event) {
         if (event.message) {
-          receivedMessage(event);
+          sendApiMessage(event);
         }
           else if (event.postback)
               {
@@ -62,6 +65,8 @@ app.post('/webhook', function (req, res) {
     res.sendStatus(200);
   }
 });
+
+
 
  //Handle Received Message Function start 
 function receivedMessage(event) {
@@ -400,6 +405,24 @@ function processPostback(event) {
   callSendAPI(messageData);
         
         }
+    // Onatel payload 
+    
+    else if (payload==="Onatel")
+        {
+            var messageData=
+                {
+                    recipient:
+                    {
+                      id:senderId  
+                    },
+                    message:
+                    {
+                        text:"Veuillez Entrez votre nom et Prénom et le numero de facture"
+                    }
+                };
+            callSendAPI(messageData);
+            
+        }
 }
 
 // sends message to user
@@ -428,6 +451,48 @@ function callSendAPI(messageData) {
       console.error(error);
     }
   });  
+}
+function sendApiMessage(event)
+{
+ let sender =event.sender.id;
+    let text= event.message.text;
+    let apiai= apiaiApp.textRequest(text,{
+        
+       sessionId:'izipay_cat' 
+    });
+    
+    apiai.on('response',(response)=>{
+        
+        let aitext=response.result.fulfillment.speech;
+        
+        request({
+            
+            url:'https://graph.facebook.com/v2.6/me/messages',
+            qs:{access_token:access},
+            method:'POST',
+            json:{
+                recipient:{id:sender},
+                message:{text:aitext}
+            }
+        }, (error,response)=>{
+            
+            if(error)
+                {
+                    console.log('Error seding message:',error);
+                }
+            else if(response.body.error)
+                {
+                    console.log('Error:',response.body.error);
+                }
+        });
+        
+    });
+    apiai.on('error',(error)=>{
+       console.log(error); 
+    });
+    
+    apiai.end();
+
 }
 // Call Send Message ApO End 
 
