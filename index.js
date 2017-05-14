@@ -462,55 +462,61 @@ function processPostback(event) {
             
         }
     else if (payload==="Online")
-        {
-              var messageData=
-       {
-           recipient:
-           {
-               id:senderId
-           },
-            message: {
+        { 
+                       
+                    var messageData = {
+    recipient: {
+      id: senderId
+    },
+    message: {
       attachment: {
         type: "template",
         payload: {
-          template_type: "button",
-            text:"quel cours désirez vous ?",
+          template_type: "generic",
+          elements: [{
+              title:"Programation C/C++ pour débutant",
+              subtitle:"Apprenenz les  Programations c/c++ de zero à hero ",
+            item_url: "https://openclassrooms.com/courses/apprenez-a-programmer-en-c",               
+            image_url: "http://2.bp.blogspot.com/-JO-VAcnATwE/VbOAMB7r17I/AAAAAAAAAb4/0rBOkiUESrU/s640/C%2BC%252B%252B%2BLogo.png",
             buttons: [{
               type: "postback",
-              title: "C",
-              payload: "Clanguage"
-            }, {
+              title:"Langage C",
+              payload: "LanguageC"
+            },
+            {
+                type:"postback",
+                title:"Langage C++",
+                payload:"Cplus"
+                
+            }
+                     
+            ]
+          }, {
+            
+            title: "Développement Web/Mobile",
+            subtitle: "Apprenez à développer des sites web et des Applications Mobiles",
+            item_url: "https://openclassrooms.com/courses?q=&idx=prod_v2_COURSES_fr&p=0&fR[certificate][0]=true&fR[isWeb][0]=true&hFR[category.name][0]=D%C3%A9veloppement%20web",               
+            image_url: "http://www.aninex.com/images/srvc/mobile-application1.png",
+            buttons: [{
               type: "postback",
-              title: "C++",
-              payload: "Cplus"
-            } ]
-          },
-          payload:
-          {
-              template_type:"button",
-              text:"Ou preferez vous les develoveppements web /android /ios ",
-              buttons:[
-                  {
-                      type:"postback",
-                      title:"web",
-                      payload:"Web"
-                  },
-                  {
-                      type:"postback",
-                      title:"Appli",
-                      payload:"Appli"
-                  }
-                  
-              ]
-              
-              
+              title:"Web",
+              payload: "Web"     
+            },
+             {
+                type:"postback",
+                title:"Mobile",
+                payload:"Mobile"
+                
+            }
+             ]
           }
           
+            ]
+        }
       }
     }
-           
-       };
-            callSendAPI(messageData) 
+  };
+            callSendAPI(messageData);
             
         }
     else if (payload==="Algos")
@@ -529,7 +535,7 @@ function processPostback(event) {
             callSendAPI(messageData);
             
         }
-    else if (payload==="Clanguage")
+    else if (payload==="Web")
         {
             
                     var messageData = {
@@ -587,6 +593,7 @@ function processPostback(event) {
       }
     }
   };
+            callSendAPI(messageData);
             
         }
 }
