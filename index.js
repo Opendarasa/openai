@@ -483,20 +483,29 @@ function processPostback(event) {
               type: "postback",
               title: "C++",
               payload: "Cplus"
-            },
-              {
-                  type:"postback",
-                  title:"Web",
-                  payload:"Web"
-              },
-                {
-                    type:"postback",
-                    title:"Appli",
-                    payload:"mobile"
-                }
-        
+            } ]
+          },
+          payload:
+          {
+              template_type:"button",
+              text:"Ou preferez vous les develoveppements web /android /ios ",
+              button:[
+                  {
+                      type:"postback",
+                      title:"web",
+                      payload:"Web"
+                  },
+                  {
+                      type:"postback",
+                      title:"Appli",
+                      payload:"Appli"
+                  }
+                  
               ]
+              
+              
           }
+          
       }
     }
            
