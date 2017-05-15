@@ -997,7 +997,7 @@ function processPostback(event) {
         }
     else if(payload==="Annuler")
         {
-            var check="off";
+            var check="Off";
             var message=" Domage de vous voir quitter ausi tô ! ";
             scheduleCours(senderId,message,check);
             
