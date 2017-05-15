@@ -3,7 +3,7 @@ const bodyParser= require('body-parser')
 const request =require('request')
 const apiaiApp= require('apiai')('90b3e04e3f5c46098831410ade6fcb8b')
 const schedule =require('node-schedule')
- 
+ const j;
 
 const app=express()
 const token= process.env.FB_VERIFY_TOKEN
@@ -179,7 +179,7 @@ function scheduleCours(senderId, message,check)
     rule.dayOfWeek=[0,new schedule.Range(0,6)];
     rule.hour=8;
     rule.minute=0;
-    var j ;
+    
     if(check==="ON")
         {
            j= schedule.scheduleJob(rule, function(){
