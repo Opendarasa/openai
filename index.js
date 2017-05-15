@@ -4,7 +4,7 @@ const request =require('request')
 const apiaiApp= require('apiai')('90b3e04e3f5c46098831410ade6fcb8b')
 const schedule =require('node-schedule')
  const  j=null;
-const rule = new schedule.RecurrenceRule();
+const rule = new schedule.RecurrenceRule();  
 
 const app=express()
 const token= process.env.FB_VERIFY_TOKEN
