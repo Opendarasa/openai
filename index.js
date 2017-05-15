@@ -3,7 +3,7 @@ const bodyParser= require('body-parser')
 const request =require('request')
 const apiaiApp= require('apiai')('90b3e04e3f5c46098831410ade6fcb8b')
 const schedule =require('node-schedule')
- const var j=null;
+ const  j=null;
 
 const app=express()
 const token= process.env.FB_VERIFY_TOKEN
