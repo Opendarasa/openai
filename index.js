@@ -2,6 +2,7 @@ const express= require ('express')
 const bodyParser= require('body-parser')
 const request =require('request')
 const apiaiApp= require('apiai')('90b3e04e3f5c46098831410ade6fcb8b')
+const schedule =require('node-schedule')
  
 
 const app=express()
@@ -172,7 +173,7 @@ function sendGenericMessage(recipientId, messageText) {
 // Send Welcome Message End //
 function scheduleCours(senderId, message,check)
 {
-    var schedule =require('node-schedule');
+    
     
     var rule = new schedule.RecurrenceRule();
     rule.dayOfWeek=[0,new schedule.Range(0,6)];
@@ -820,7 +821,7 @@ function processPostback(event) {
             buttons: [{
               type: "postback",
               title: "J'arrête là",
-              payload: "Annuler"
+              payload: "Annuler1"
             }
         
               ]
@@ -991,7 +992,7 @@ function processPostback(event) {
             scheduleCours(senderId,message,check);
         
         }
-    else if(payload==="Annuler")
+    else if(payload==="Annuler1")
         {
             var check="off";
             var message=" Domage de vous voir quitter ausi tô ! ";
