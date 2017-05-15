@@ -945,7 +945,7 @@ function processPostback(event) {
                     id:senderId
                 },
                 message:{
-                    text:"Très bien Joué , Reste à l'éecoute ! je te reviendra avec de gros contrat mais avant envois moi un mail au "+mail+".";
+                    text:"Très bien Joué , Reste à l'éecoute ! je te reviendra avec de gros contrat mais avant envois moi un mail au "+mail+"."
                 }
             };
             callSendAPI(messageData8);
