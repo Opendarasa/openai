@@ -178,7 +178,7 @@ function scheduleCours(senderId, message,check)
     var rule = new schedule.RecurrenceRule();
     rule.dayOfWeek=[0,new schedule.Range(0,6)];
     rule.hour=18;
-    rule.minute=40;
+    rule.minute=44;
     
     //if(check==="ON")
         
@@ -1004,7 +1004,7 @@ function processPostback(event) {
         }
     else if(payload==="fini")
         {
-            var check="off";
+            var check="Off";
             var message="Très bien joué! reste à l'écoute , je te reviendrai avec des contrats bientôt!";
             scheduleCours(senderId,message,check);
         }
