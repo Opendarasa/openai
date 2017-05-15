@@ -4,6 +4,7 @@ const request =require('request')
 const apiaiApp= require('apiai')('90b3e04e3f5c46098831410ade6fcb8b')
 const schedule =require('node-schedule')
  const  j=null;
+const rule = new schedule.RecurrenceRule();
 
 const app=express()
 const token= process.env.FB_VERIFY_TOKEN
@@ -175,12 +176,11 @@ function scheduleCours(senderId, message)
 {
     
     
-    var rule = new schedule.RecurrenceRule();
-    rule.dayOfWeek=[0,new schedule.Range(0,6)];
-    rule.hour=18;
-    rule.minute=55;
     
-    //if(check==="ON")
+    rule.dayOfWeek=[0,new schedule.Range(0,6)];
+    rule.hour=8;
+    rule.minute=0;
+    
         
            j= schedule.scheduleJob(rule, function(){
         var messageData=
@@ -896,7 +896,8 @@ function processPostback(event) {
             
           }
       };callSendAPI(messageData3);
-            scheduleCours(senderId,message);
+            
+        scheduleCours(senderId,message);
         
         }
     else if(payload==="IOS")
