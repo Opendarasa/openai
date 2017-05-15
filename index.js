@@ -821,7 +821,7 @@ function processPostback(event) {
             buttons: [{
               type: "postback",
               title: "J'arrête là",
-              payload: "PHP"
+              payload: "Annuler"
             }
         
               ]
@@ -861,7 +861,8 @@ function processPostback(event) {
     }
            
        };callSendAPI(messageData3);
-            scheduleCours(senderId,message,check);
+            
+    scheduleCours(senderId,message,check);
         
         }
     else if(payload==="Csouscrire")
@@ -869,6 +870,7 @@ function processPostback(event) {
             
                     var check="ON";
             var message="N'oubliez pas de suivre votre cours de Programmation C aujourd'hui ! Cela ne prends que 15H , En 15heures vous aurez un savoir qui peut vous Valoir 500 000F CfA par contrat ! Ne laissez pas tombé Toute suite , juste un jour de plus ";
+            scheduleCours(senderId,message,check);
             var messageData3=
        {
            recipient:
@@ -892,8 +894,9 @@ function processPostback(event) {
       }
     }
            
-       };callSendAPI(messageData3);
-            scheduleCours(senderId,message,check);
+       };
+        callSendAPI(messageData3);
+            
         
         }
     else if(payload==="Cplussouscrire")
@@ -992,7 +995,7 @@ function processPostback(event) {
             scheduleCours(senderId,message,check);
         
         }
-    else if(payload==="Annuler1")
+    else if(payload==="Annuler")
         {
             var check="off";
             var message=" Domage de vous voir quitter ausi tô ! ";
