@@ -596,6 +596,150 @@ function processPostback(event) {
             callSendAPI(messageData);
             
         }
+    else if(payload==="LanguageC")
+        {
+                           var messageData = {
+    recipient: {
+      id: senderId
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [{
+              title:"Programmation C",
+              subtitle:"Apprenez  la conception de sites de jeux vidéos de zero à hero avec C ",
+            item_url: "https://openclassrooms.com/courses/apprenez-a-programmer-en-c",               
+            image_url: "http://mosaically.com/~/photo/600/2015/10/20/13/b4b8ad89-1bb1-4f75-b225-7c2e51c26834.jpg",
+            buttons: [{
+              type: "web_url",
+              url: "https://openclassrooms.com/courses/apprenez-a-programmer-en-c",
+              title: "Voir le cours",
+            webview_height_ratio:"full",
+            messenger_extensions:true,
+                fallback_url:"https://openclassrooms.com/courses/apprenez-a-programmer-en-c" 
+            },
+            {
+                type:"postback",
+                title:"Souscrire",
+                payload:"Csouscrire"
+                
+            }
+                     
+            ]
+          }]
+        }
+      }
+    }
+  };
+            callSendAPI(messageData);
+            
+        }
+    else if (payload==="Cplus")
+        {
+               var messageData = {
+    recipient: {
+      id: senderId
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [{
+              title:"Programmation C++",
+              subtitle:"Apprenez  la Programmation orienté avec C++ ",
+            item_url: "https://openclassrooms.com/courses/programmez-avec-le-langage-c",               
+            image_url: "http://www.technewsable.com/wp-content/uploads/2015/07/c-logo.png",
+            buttons: [{
+              type: "web_url",
+              url: "https://openclassrooms.com/courses/programmez-avec-le-langage-c",
+              title: "Voir le cours",
+            webview_height_ratio:"full",
+            messenger_extensions:true,
+                fallback_url:"https://openclassrooms.com/courses/programmez-avec-le-langage-c" 
+            },
+            {
+                type:"postback",
+                title:"Souscrire",
+                payload:"Cplussouscrire"
+                
+            }
+                     
+            ]
+          }]
+        }
+      }
+    }
+  };
+            callSendAPI(messageData);
+            
+
+            
+        }
+    else if (payload==="Mobile")
+        {
+               
+                    var messageData = {
+    recipient: {
+      id: senderId
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [{
+              title:"Android",
+              subtitle:"Apprenez  la conception d'applications mobile android avec java  de zero à hero ",
+            item_url: "https://openclassrooms.com/courses/developpez-une-application-pour-android",               
+            image_url: "https://image.freepik.com/free-vector/android-boot-logo_634639.jpg",
+            buttons: [{
+              type: "web_url",
+              url: "https://openclassrooms.com/courses/developpez-une-application-pour-android",
+              title: "Android",
+            webview_height_ratio:"full",
+            messenger_extensions:true,
+                fallback_url:"https://openclassrooms.com/courses/developpez-une-application-pour-android" 
+            },
+            {
+                type:"postback",
+                title:"Souscrire",
+                payload:"Android"
+                
+            }
+                     
+            ],
+          }, {
+            
+            title: "IOS",
+            subtitle: "Apprenez le developpement d'applications mobile IOS avec swift, de zero à héro ",
+            item_url: "https://openclassrooms.com/courses/decouvrez-le-langage-swift",               
+            image_url: "https://developer.apple.com/swift/images/swift-og.png",
+            buttons: [{
+              type: "web_url",
+              url: "https://openclassrooms.com/courses/decouvrez-le-langage-swift",
+              title: "IOS",
+                 webview_height_ratio:"full",
+            messenger_extensions:true
+            },
+             {
+                type:"postback",
+                title:"Souscrire",
+                payload:"IOS"
+                
+            }
+             ]
+          }]
+        }
+      }
+    }
+  };
+            callSendAPI(messageData);
+         
+            
+        }
 }
 
 // sends message to user
