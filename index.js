@@ -171,7 +171,7 @@ function sendGenericMessage(recipientId, messageText) {
   callSendAPI(messageData);
 }*/
 // Send Welcome Message End //
-function scheduleCours(senderId, message,check)
+function scheduleCours(senderId, message)
 {
     
     
@@ -215,20 +215,10 @@ function scheduleCours(senderId, message,check)
         
     });  
         
-     if (check==="Off") {
+     
         
-         var messagedata2=
-             {
-                 recipient:{
-                     id:senderId
-                 },
-                 message:{
-                     text:message
-                 }
-             };
-        callSendAPI(messagedata2);
-         j.cancel();
-    }
+        
+    
     
     
     
@@ -805,7 +795,7 @@ function processPostback(event) {
         }
     else if (payload==="HTML")
         {
-            var check="ON";
+            
             var message="N'oubliez pas de suivre votre cours de HTML aujourd'hui ! Cela ne prends que 15H , En 15heures vous aurez un savoir qui peut vous Valoir 500 000F CfA par contrat ! Ne laissez pas tombé Toute suite , juste un jour de plus ";
             var messageData2=
        {
@@ -814,29 +804,17 @@ function processPostback(event) {
                id:senderId
            },
             message: {
-      attachment: {
-        type: "template",
-        payload: {
-          template_type: "button",
-            text:"Bienvenue au Cours HTML5/ccs3 je vais vous envoyer des Messages tous les jours à 8h00 pour vous rappeler de suivre le cours!saviez  vous 80% de ceux qui ont pris ce cours ont tous un salaire minimum de 500000F par mois? le cours est gratuit et ne prends que 15heures. Je Laissez pas tomber en coours de route s'il vous plaît!",
-            buttons: [{
-              type: "postback",
-              title: "J'arrête là",
-              payload: "Annuler"
-            }
-        
-              ]
+    
+            text:"Bienvenue au Cours HTML5/ccs3 je vais vous envoyer des Messages tous les jours à 8h00 pour vous rappeler de suivre le cours!saviez  vous 80% de ceux qui ont pris ce cours ont tous un salaire minimum de 500000F par mois? le cours est gratuit et ne prends que 15heures. Je Laissez pas tomber en coours de route s'il vous plaît!"
           }
-      }
-    }
-           
-       };callSendAPI(messageData2);
-            scheduleCours(senderId,message,check);
+      };
+            callSendAPI(messageData2);
+            scheduleCours(senderId,message);
         
         }
     else if(payload==="PHP")
         {
-                var check="ON";
+                
             var message="N'oubliez pas de suivre votre cours de PHP/Mysql aujourd'hui ! Cela ne prends que 15H , En 15heures vous aurez un savoir qui peut vous Valoir 500 000F CfA par contrat ! Ne laissez pas tombé Toute suite , juste un jour de plus ";
             var messageData3=
        {
@@ -845,33 +823,24 @@ function processPostback(event) {
                id:senderId
            },
             message: {
-      attachment: {
-        type: "template",
-        payload: {
-          template_type: "button",
+      
             text:"Bienvenue au Cours PHP/Mysql je vais vous envoyer des Messages tous les jours à 8h00 pour vous rappeler de suivre le cours!saviez  vous 80% de ceux qui ont pris ce cours ont tous un salaire minimum de 500000F par mois? le cours est gratuit et ne prends que 15heures. Je Laissez pas tomber en coours de route s'il vous plaît!",
-            buttons: [{
-              type: "postback",
-              title: "J'arrête là",
-              payload: "Annuler"
-            }
-        
-              ]
+            
           }
-      }
-    }
+      
+    
            
        };callSendAPI(messageData3);
             
-    scheduleCours(senderId,message,check);
+    scheduleCours(senderId,message);
         
         }
     else if(payload==="Csouscrire")
         {
             
-                    var check="ON";
+                    
             var message="N'oubliez pas de suivre votre cours de Programmation C aujourd'hui ! Cela ne prends que 15H , En 15heures vous aurez un savoir qui peut vous Valoir 500 000F CfA par contrat ! Ne laissez pas tombé Toute suite , juste un jour de plus ";
-            scheduleCours(senderId,message,check);
+           
             var messageData3=
        {
            recipient:
@@ -879,31 +848,20 @@ function processPostback(event) {
                id:senderId
            },
             message: {
-      attachment: {
-        type: "template",
-        payload: {
-          template_type: "button",
+      
             text:"Bienvenue au Cours de Programmation C je vais vous envoyer des Messages tous les jours à 8h00 pour vous rappeler de suivre le cours!saviez  vous 80% de ceux qui ont pris ce cours ont tous un salaire minimum de 500000F par mois? le cours est gratuit et ne prends que 15heures. Je Laissez pas tomber en coours de route s'il vous plaît!",
-            buttons: [{
-              type: "postback",
-              title: "J'arrête là",
-              payload: "Annuler"
-            }
-        
-              ]
+            
           }
-      }
-    }
-           
        };
         callSendAPI(messageData3);
+             scheduleCours(senderId,message);
             
         
         }
     else if(payload==="Cplussouscrire")
         {
             
-                    var check="ON";
+                    
             var message="N'oubliez pas de suivre votre cours de C++ aujourd'hui ! Cela ne prends que 15H , En 15heures vous aurez un savoir qui peut vous Valoir 500 000F CfA par contrat ! Ne laissez pas tombé Toute suite , juste un jour de plus ";
             var messageData3=
        {
@@ -912,30 +870,19 @@ function processPostback(event) {
                id:senderId
            },
             message: {
-      attachment: {
-        type: "template",
-        payload: {
-          template_type: "button",
+      
             text:"Bienvenue au Cours C++ je vais vous envoyer des Messages tous les jours à 8h00 pour vous rappeler de suivre le cours!saviez  vous 80% de ceux qui ont pris ce cours ont tous un salaire minimum de 500000F par mois? le cours est gratuit et ne prends que 15heures. Je Laissez pas tomber en coours de route s'il vous plaît!",
-            buttons: [{
-              type: "postback",
-              title: "J'arrête là",
-              payload: "Annuler"
-            }
-        
-              ]
+            
           }
-      }
-    }
-           
-       };callSendAPI(messageData3);
-            scheduleCours(senderId,message,check);
+      };
+            callSendAPI(messageData3);
+            scheduleCours(senderId,message);
         
         }
     else if(payload==="Android")
         {
                 
-                    var check="ON";
+                    
             var message="N'oubliez pas de suivre votre cours de developpement Android aujourd'hui ! Cela ne prends que 15H , En 15heures vous aurez un savoir qui peut vous Valoir au minimum 5000 dollars américains au minimum par contrat ! Ne laissez pas tombé Toute suite , juste un jour de plus ";
             var messageData3=
        {
@@ -944,30 +891,18 @@ function processPostback(event) {
                id:senderId
            },
             message: {
-      attachment: {
-        type: "template",
-        payload: {
-          template_type: "button",
+      
             text:"Bienvenue au Cours de développement Android je vais vous envoyer des Messages tous les jours à 8h00 pour vous rappeler de suivre le cours!saviez  vous 80% de ceux qui ont pris ce cours ont tous un salaire minimum de 5000 dollars américains par contrat? le cours est gratuit et ne prends que 15heures. Je Laissez pas tomber en coours de route s'il vous plaît!",
-            buttons: [{
-              type: "postback",
-              title: "J'arrête là",
-              payload: "Annuler"
-            }
-        
-              ]
+            
           }
-      }
-    }
-           
-       };callSendAPI(messageData3);
-            scheduleCours(senderId,message,check);
+      };callSendAPI(messageData3);
+            scheduleCours(senderId,message);
         
         }
     else if(payload==="IOS")
         {
                     
-                    var check="ON";
+                    
             var message="N'oubliez pas de suivre votre cours de developpement IOS aujourd'hui ! Cela ne prends que 15H , En 15heures vous aurez un savoir qui peut vous Valoir au minimum 5000 dollars américains au minimum par contrat ! Ne laissez pas tombé Toute suite , juste un jour de plus ";
             var messageData3=
        {
@@ -976,38 +911,46 @@ function processPostback(event) {
                id:senderId
            },
             message: {
-      attachment: {
-        type: "template",
-        payload: {
-          template_type: "button",
+      
             text:"Bienvenue au Cours de développement IOS je vais vous envoyer des Messages tous les jours à 8h00 pour vous rappeler de suivre le cours!saviez  vous 80% de ceux qui ont pris ce cours ont tous un salaire minimum de 5000 dollars américains par contrat? le cours est gratuit et ne prends que 15heures. Je Laissez pas tomber en coours de route s'il vous plaît!",
-            buttons: [{
-              type: "postback",
-              title: "J'arrête là",
-              payload: "Annuler"
-            }
-        
-              ]
+            
           }
-      }
-    }
-           
-       };callSendAPI(messageData3);
-            scheduleCours(senderId,message,check);
+      };
+            callSendAPI(messageData3);
+            scheduleCours(senderId,message);
         
         }
     else if(payload==="Annuler")
         {
-            var check="Off";
-            var message=" Domage de vous voir quitter ausi tô ! ";
-            scheduleCours(senderId,message,check);
+            var messageData7=
+                {
+                    recipient:
+                    {
+                        id:senderId
+                    },
+                    message:{
+                        text:"Domage que tu quitte si tô ! on au aurai pu travailler ensemble dans le futur !Portes-toi bien !"
+                    }
+                };
+            callSendAPI(messageData7);
+            j.cancel();
             
         }
     else if(payload==="fini")
         {
-            var check="Off";
-            var message="Très bien joué! reste à l'écoute , je te reviendrai avec des contrats bientôt!";
-            scheduleCours(senderId,message,check);
+            var mail="ouedmenga@gmail.com";
+            var messageData8={
+                
+                recipient:{
+                    id:senderId
+                },
+                message:{
+                    text:"Très bien Joué , Reste à l'éecoute ! je te reviendra avec de gros contrat mais avant envois moi un mail au "+mail+".";
+                }
+            };
+            callSendAPI(messageData8);
+            
+            j.cancel();
         }
 }
 
