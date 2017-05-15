@@ -821,7 +821,7 @@ function processPostback(event) {
             buttons: [{
               type: "postback",
               title: "J'arrête là",
-              payload: "IOS"
+              payload: "PHP"
             }
         
               ]
