@@ -177,8 +177,8 @@ function scheduleCours(senderId, message,check)
     
     var rule = new schedule.RecurrenceRule();
     rule.dayOfWeek=[0,new schedule.Range(0,6)];
-    rule.hour=2;
-    rule.minute=35;
+    rule.hour=18;
+    rule.minute=40;
     
     //if(check==="ON")
         
