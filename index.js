@@ -178,7 +178,7 @@ function scheduleCours(senderId, message,check)
     var rule = new schedule.RecurrenceRule();
     rule.dayOfWeek=[0,new schedule.Range(0,6)];
     rule.hour=2;
-    rule.minute=32;
+    rule.minute=35;
     
     //if(check==="ON")
         
@@ -215,7 +215,7 @@ function scheduleCours(senderId, message,check)
         
     });  
         
-    else if (check==="Off") {
+     if (check==="Off") {
         j.cancel();
          var messagedata2=
              {
