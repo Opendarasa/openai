@@ -821,7 +821,7 @@ function processPostback(event) {
             buttons: [{
               type: "postback",
               title: "J'arrête là",
-              payload: "Annuler1"
+              payload: "IOS"
             }
         
               ]
