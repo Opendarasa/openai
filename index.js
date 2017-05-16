@@ -4,7 +4,17 @@ const request =require('request')
 const apiaiApp= require('apiai')('90b3e04e3f5c46098831410ade6fcb8b')
 const schedule =require('node-schedule')
  const  j=null;
+const phpjob=null;
+const cjob=null;
+const cplusjob=null;
+const androidJob=null;
+const iosJob=null;
 const rule = new schedule.RecurrenceRule(); 
+const rule2 = new schedule.RecurrenceRule();
+const ruleC = new schedule.RecurrenceRule();
+const ruleCplus = new schedule.RecurrenceRule();
+const ruleAndroid = new schedule.RecurrenceRule();
+const ruleIos = new schedule.RecurrenceRule();
 const cluster=require('cluster');
 
 const app=express()
@@ -16,6 +26,9 @@ app.set('port',(process.env.PORT||5000))
 app.use(bodyParser.urlencoded({extended:false}))
 
 app.use(bodyParser.json())
+/* ************************************
+   *     roure heroku index            *              
+   *************************************/
 
 app.get('/',function(req,res)
 {
@@ -23,6 +36,10 @@ app.get('/',function(req,res)
     
     res.send('Hello Youtube')
 })
+
+/* ************************************
+   *     route to get  webhouk        *              
+   *************************************/
 
 app.get('/webhook/',function(req,res)
 {
@@ -33,7 +50,11 @@ app.get('/webhook/',function(req,res)
     
     res.send('No Entry')
 })
-    
+ 
+/* ************************************
+   *     route to handle webhook post *              
+   *************************************/
+
 app.post('/webhook', function (req, res) {
   var data = req.body;
 
@@ -69,111 +90,10 @@ app.post('/webhook', function (req, res) {
   }
 });
 
-
-
- //Handle Received Message Function start 
-/*function receivedMessage(event) {
- var senderID = event.sender.id;
-  var recipientID = event.recipient.id;
-  var timeOfMessage = event.timestamp;
-  var message = event.message;
-    
-
-  console.log("Received message for user %d and page %d at %d with message:", 
-    senderID, recipientID, timeOfMessage);
-  console.log(JSON.stringify(message));
-
-  var messageId = message.mid;
-
-  var messageText = message.text;
-  var messageAttachments = message.attachments;
-    var welcomeText="salut comment-allez que puis je faire pour vous ?";
-
-  if (messageText) {
-
-    // If we receive a text message, check to see if it matches a keyword
-    // and send back the example. Otherwise, just echo the text we received.
-    switch (messageText) {
-      case 'generic':
-        sendGenericMessage(senderID);
-      
-        break;
-        case 'salut':
-            sendwelcomeMessage(senderID,"salut comment ca va ?");
-            break;
-
-      default:
-        sendTextMessage(senderID, messageText);
-    }
-  } else if (messageAttachments) {
-    sendTextMessage(senderID, "Message with attachment received");
-  }*/
-//Handle Received Message end 
-
-//Send generic Message Function start 
-function sendGenericMessage(recipientId, messageText) {
-  // To be expanded in later sections
-    
-    var messageData = {
-    recipient: {
-      id: recipientId
-    },
-    message: {
-      attachment: {
-        type: "template",
-        payload: {
-          template_type: "button",
-            text:" Cliquez sur Envoyer Pour faire un Transfer et Payer Facture pour payer vos Factures!",
-            buttons: [{
-              type: "postback",
-              title: "Transfer d'argent",
-              payload: "Taransfer"
-            }, {
-              type: "postback",
-              title: "Payer vos Factures",
-              payload: "Factures"
-            }
-        
-              ]
-          }
-      }
-    }
-  };  
-
-  callSendAPI(messageData);
-}
-//Send generic Message end 
-
-
-//Send default Text messag e function  start//
-/*function sendTextMessage(recipientId, messageText) {
-  var messageData = {
-    recipient: {
-      id: recipientId
-    },
-    message: {
-      text: messageText
-    }
-  };
-
-  callSendAPI(messageData);
-}*/
-// Send default Text Message end //
-//####### Send a Welcome Message start#######//
-/*function sendwelcomeMessage(recipientId, welcomeText) {
-  var messageData = {
-    recipient: {
-      id: recipientId
-    },
-    message: {
-      text: welcomeText
-    }
-  };
-
-  callSendAPI(messageData);
-}*/
-// Send Welcome Message End //
-function scheduleCours(senderId, message)
+/* ************************************
+   *     HTml  scheduler              *              
+   *************************************/
+function scheduleHtml(senderId, message)
 {
     
     
@@ -202,11 +122,271 @@ function scheduleCours(senderId, message)
             buttons: [{
               type: "postback",
               title: "J'ai fini",
-              payload: "fini"
+              payload: "finihtml"
             },{
                 type:"postback",
                 title:"Annuler",
-                payload:"Annuler"
+                payload:"Annulerhtml"
+            }
+        
+              ]
+          }
+      }
+    }
+           
+       };
+        callSendAPI(messageData);
+        
+    });  
+
+        
+  
+}
+/* ************************************
+   *     PHP  scheduler              *              
+   *************************************/
+function schedulePHP(senderId, message)
+{
+    
+    
+    
+    rule2.dayOfWeek=[0,new schedule.Range(0,6)];
+    rule2.hour=8;
+    rule2.minute=0;
+    
+    
+        
+    
+        
+           phpjob= schedule.scheduleJob(rule2, function(){
+        var messageData=
+       {
+           recipient:
+           {
+               id:senderId
+           },
+            message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "button",
+            text:message ,
+            buttons: [{
+              type: "postback",
+              title: "J'ai fini",
+              payload: "finiphp"
+            },{
+                type:"postback",
+                title:"Annuler",
+                payload:"Annulerphp"
+            }
+        
+              ]
+          }
+      }
+    }
+           
+       };
+        callSendAPI(messageData);
+        
+    });  
+
+        
+  
+}
+/* ************************************
+   *     C scheduler   scheduler      *        *           *                                  *
+   *************************************/
+function scheduleC(senderId, message)
+{
+    
+    
+    
+    ruleC.dayOfWeek=[0,new schedule.Range(0,6)];
+    ruleC.hour=8;
+    ruleC.minute=0;
+    
+    
+        
+    
+        
+           cjob= schedule.scheduleJob(ruleC, function(){
+        var messageData=
+       {
+           recipient:
+           {
+               id:senderId
+           },
+            message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "button",
+            text:message ,
+            buttons: [{
+              type: "postback",
+              title: "J'ai fini",
+              payload: "finiC"
+            },{
+                type:"postback",
+                title:"Annuler",
+                payload:"AnnulerC"
+            }
+        
+              ]
+          }
+      }
+    }
+           
+       };
+        callSendAPI(messageData);
+        
+    });  
+
+        
+  
+}
+/* ************************************
+   *     C++  scheduler              *              
+   *************************************/
+function scheduleCplus(senderId, message)
+{
+    
+    
+    
+    ruleCplus.dayOfWeek=[0,new schedule.Range(0,6)];
+    ruleCplus.hour=8;
+    ruleCplus.minute=0;
+    
+    
+        
+    
+        
+           cplusjob= schedule.scheduleJob(ruleCplus, function(){
+        var messageData=
+       {
+           recipient:
+           {
+               id:senderId
+           },
+            message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "button",
+            text:message ,
+            buttons: [{
+              type: "postback",
+              title: "J'ai fini",
+              payload: "finiCplus"
+            },{
+                type:"postback",
+                title:"Annuler",
+                payload:"AnnulerCplus"
+            }
+        
+              ]
+          }
+      }
+    }
+           
+       };
+        callSendAPI(messageData);
+        
+    });  
+
+        
+  
+}
+/* ************************************
+   *     Android scheduler              *              
+   *************************************/
+function scheduleAndroid(senderId, message)
+{
+    
+    
+    
+    ruleAndroid.dayOfWeek=[0,new schedule.Range(0,6)];
+    ruleAndroid.hour=8;
+    ruleAndroid.minute=0;
+    
+    
+        
+    
+        
+           androidJob= schedule.scheduleJob(ruleAndroid, function(){
+        var messageData=
+       {
+           recipient:
+           {
+               id:senderId
+           },
+            message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "button",
+            text:message ,
+            buttons: [{
+              type: "postback",
+              title: "J'ai fini",
+              payload: "finiandroid"
+            },{
+                type:"postback",
+                title:"Annuler",
+                payload:"Annulerandroid"
+            }
+        
+              ]
+          }
+      }
+    }
+           
+       };
+        callSendAPI(messageData);
+        
+    });  
+
+        
+  
+}
+/* ************************************
+   *     IOS  scheduler              *              
+   *************************************/
+function scheduleIOS(senderId, message)
+{
+    
+    
+    
+    ruleIos.dayOfWeek=[0,new schedule.Range(0,6)];
+    ruleIos.hour=8;
+    ruleIos.minute=0;
+    
+    
+        
+    
+        
+           iosJob= schedule.scheduleJob(ruleIos, function(){
+        var messageData=
+       {
+           recipient:
+           {
+               id:senderId
+           },
+            message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "button",
+            text:message ,
+            buttons: [{
+              type: "postback",
+              title: "J'ai fini",
+              payload: "finiIos"
+            },{
+                type:"postback",
+                title:"Annuler",
+                payload:"AnnulerIos"
             }
         
               ]
@@ -223,7 +403,9 @@ function scheduleCours(senderId, message)
   
 }
 
-//postback handling function start
+/* ************************************
+   *     postback   payload handler              *              
+   *************************************/
 function processPostback(event) {
   var senderId = event.sender.id;
   var payload = event.postback.payload;
@@ -248,7 +430,7 @@ function processPostback(event) {
         greeting = "Salut M. " + name + ". ";
           
       }
-      var message = greeting + "Mon nom c'est izipay , je suis a vos services pour tous vos tranfer d'argent et vos paiement de factures.Que direz vous faire aujourd'hui ?";
+      var message = greeting + "Mon nom c'est izipay , je suis ton pote si tu vveux causer , je peux aussi t'offrir tes formules de Maths , Physique , des cours d'informatiques en ligne gratuitement! mais je peux aussi t'offrir les Algos des langage C,C++, des functions PHP et les commande Linux ";
       //sendMessage(senderId, {text: message});
         //sendGenericMessage(senderId);
           var messageData = {
@@ -796,7 +978,7 @@ function processPostback(event) {
         {
             
             var message="N'oubliez pas de suivre votre cours de HTML aujourd'hui ! Cela ne prends que 15H , En 15heures vous aurez un savoir qui peut vous Valoir 500 000F CfA par contrat ! Ne laissez pas tombé Toute suite , juste un jour de plus ";
-            var messageData2=
+            var messageDatahtml=
        {
            recipient:
            {
@@ -807,18 +989,18 @@ function processPostback(event) {
             text:"Bienvenue au Cours HTML5/ccs3 je vais vous envoyer des Messages tous les jours à 8h00 pour vous rappeler de suivre le cours!saviez  vous 80% de ceux qui ont pris ce cours ont tous un salaire minimum de 500000F par mois? le cours est gratuit et ne prends que 15heures. Je Laissez pas tomber en coours de route s'il vous plaît!"
           }
       };
-            if(cluster.worker.id==1){
-              callSendAPI(messageData2);  
-            }
             
-            scheduleCours(senderId,message);
+              callSendAPI(messageDatahtml);  
+            
+            
+        scheduleHtml(senderId,message);
         
         }
     else if(payload==="PHP")
         {
                 
             var message="N'oubliez pas de suivre votre cours de PHP/Mysql aujourd'hui ! Cela ne prends que 15H , En 15heures vous aurez un savoir qui peut vous Valoir 500 000F CfA par contrat ! Ne laissez pas tombé Toute suite , juste un jour de plus ";
-            var messageData3=
+            var messageDataPhp=
        {
            recipient:
            {
@@ -832,9 +1014,9 @@ function processPostback(event) {
       
     
            
-       };callSendAPI(messageData3);
+       };callSendAPI(messageDataPhp);
             
-    scheduleCours(senderId,message);
+    schedulePHP(senderId,message);
         
         }
     else if(payload==="Csouscrire")
@@ -843,7 +1025,7 @@ function processPostback(event) {
                     
             var message="N'oubliez pas de suivre votre cours de Programmation C aujourd'hui ! Cela ne prends que 15H , En 15heures vous aurez un savoir qui peut vous Valoir 500 000F CfA par contrat ! Ne laissez pas tombé Toute suite , juste un jour de plus ";
            
-            var messageData3=
+            var messageDataC=
        {
            recipient:
            {
@@ -855,8 +1037,8 @@ function processPostback(event) {
             
           }
        };
-        callSendAPI(messageData3);
-             scheduleCours(senderId,message);
+        callSendAPI(messageDataC);
+             scheduleC(senderId,message);
             
         
         }
@@ -865,7 +1047,7 @@ function processPostback(event) {
             
                     
             var message="N'oubliez pas de suivre votre cours de C++ aujourd'hui ! Cela ne prends que 15H , En 15heures vous aurez un savoir qui peut vous Valoir 500 000F CfA par contrat ! Ne laissez pas tombé Toute suite , juste un jour de plus ";
-            var messageData3=
+            var messageData10=
        {
            recipient:
            {
@@ -877,8 +1059,8 @@ function processPostback(event) {
             
           }
       };
-            callSendAPI(messageData3);
-            scheduleCours(senderId,message);
+            callSendAPI(messageData10);
+            scheduleCplus(senderId,message);
         
         }
     else if(payload==="Android")
@@ -899,7 +1081,7 @@ function processPostback(event) {
           }
       };callSendAPI(messageData3);
             
-        scheduleCours(senderId,message);
+        scheduleAndroid(senderId,message);
         
         }
     else if(payload==="IOS")
@@ -907,7 +1089,7 @@ function processPostback(event) {
                     
                     
             var message="N'oubliez pas de suivre votre cours de developpement IOS aujourd'hui ! Cela ne prends que 15H , En 15heures vous aurez un savoir qui peut vous Valoir au minimum 5000 dollars américains au minimum par contrat ! Ne laissez pas tombé Toute suite , juste un jour de plus ";
-            var messageData3=
+            var messageDataios=
        {
            recipient:
            {
@@ -919,41 +1101,204 @@ function processPostback(event) {
             
           }
       };
-            callSendAPI(messageData3);
-            scheduleCours(senderId,message);
+            callSendAPI(messageDataios);
+            scheduleIOS(senderId,message);
         
         }
-    else if(payload==="Annuler")
+    else if(payload==="Annulerhtml")
         {
-            var messageData7=
+            var messageDataannulerhtml=
                 {
                     recipient:
                     {
                         id:senderId
                     },
                     message:{
-                        text:"Domage que tu quitte si tô ! on au aurai pu travailler ensemble dans le futur !Portes-toi bien !"
+                        text:"Domage que tu quitte si tô ! on au aurai pu développer des sites en HTML ensemble dans le futur !Portes-toi bien !"
                     }
                 };
-            callSendAPI(messageData7);
+            callSendAPI(messageDataannulerhtml);
             j.cancel();
             
         }
-    else if(payload==="fini")
+    else if(payload==="finihtml")
         {
             var mail="ouedmenga@gmail.com";
-            var messageData8={
+            var messageDatafinihtml={
                 
                 recipient:{
                     id:senderId
                 },
                 message:{
-                    text:"Très bien Joué , Reste à l'éecoute ! je te reviendra avec de gros contrat mais avant envois moi un mail au "+mail+"."
+                    text:"Très bien Joué , Reste à l'écoute ! je te reviendra avec de gros contrat mais avant envois moi un mail au "+mail+" avec ton certicat en fichier attaché."
                 }
             };
-            callSendAPI(messageData8);
+            callSendAPI(messageDatafinihtml);
             
             j.cancel();
+        }
+    else if(payload==="Annulerphp")
+        {
+            var messageDataannulerphp=
+                {
+                    recipient:
+                    {
+                        id:senderId
+                    },
+                    message:{
+                        text:"Domage que tu quitte si tô ! on au aurai pu développer des sites Web en PHP/Mysql ensemble dans le futur !Portes-toi bien !"
+                    }
+                };
+            callSendAPI(messageDataannulerphp);
+            phpjob.cancel();
+        }
+    else if(payload==="finiphp")
+        {
+             var mail="ouedmenga@gmail.com";
+            var messageDatafiniphp={
+                
+                recipient:{
+                    id:senderId
+                },
+                message:{
+                    text:"Très bien Joué , Reste à l'écoute ! je te reviendra avec de gros contrat mais avant envois moi un mail au "+mail+" avec ton certicat en fichier attaché."
+                }
+            };
+            callSendAPI(messageDatafiniphp);
+            
+            phpjob.cancel();
+            
+        }
+    else if(payload=="AnnulerC")
+        {
+           var messageDataannulerC=
+                {
+                    recipient:
+                    {
+                        id:senderId
+                    },
+                    message:{
+                        text:"Domage que tu quitte si tô ! on au aurai pu développer des logiciels en C  ensemble dans le futur !Portes-toi bien !"
+                    }
+                };
+            callSendAPI(messageDataannulerC);
+            cjob.cancel(); 
+            
+        }
+    else if(payload==="finiC")
+        {
+            
+            var mail="ouedmenga@gmail.com";
+            var messageDatafinic={
+                
+                recipient:{
+                    id:senderId
+                },
+                message:{
+                    text:"Très bien Joué , Reste à l'écoute ! je te reviendra avec de gros contrat mais avant envois moi un mail au "+mail+" avec ton certicat en fichier attaché."
+                }
+            };
+            callSendAPI(messageDatafinic);
+            
+            cjob.cancel();
+        }
+    else if(payload==="AnnulerCplus")
+        {
+           var messageDataannulerCplus=
+                {
+                    recipient:
+                    {
+                        id:senderId
+                    },
+                    message:{
+                        text:"Domage que tu quitte si tô ! on au aurai pu développer logiciels en C++ ensemble dans le futur !Portes-toi bien !"
+                    }
+                };
+            callSendAPI(messageDataannulerCplus);
+            cplusjob.cancel(); 
+            
+        }
+    else if(payload==="finiCplus")
+        {
+            
+            var mail="ouedmenga@gmail.com";
+            var messageDatafinicplus={
+                
+                recipient:{
+                    id:senderId
+                },
+                message:{
+                    text:"Très bien Joué , Reste à l'écoute ! je te reviendra avec de gros contrat mais avant envois moi un mail au "+mail+" avec ton certicat en fichier attaché."
+                }
+            };
+            callSendAPI(messageDatafinicplus);
+            
+            cplusjob.cancel();
+        }
+    else if(payload==="Annulerandroid")
+        {
+            var messageDataannulerAndroid=
+                {
+                    recipient:
+                    {
+                        id:senderId
+                    },
+                    message:{
+                        text:"Domage que tu quitte si tô ! on au aurai pu développer des Applications Android  ensemble dans le futur !Portes-toi bien !"
+                    }
+                };
+            callSendAPI(messageDataannulerAndroid);
+            androidJob.cancel(); 
+            
+            
+        }
+    else if(payload==="finiandroid")
+        {
+            var mail="ouedmenga@gmail.com";
+            var messageDatafiniAndroid={
+                
+                recipient:{
+                    id:senderId
+                },
+                message:{
+                    text:"Très bien Joué , Reste à l'écoute ! je te reviendra avec de gros contrat mais avant envois moi un mail au "+mail+" avec ton certicat en fichier attaché."
+                }
+            };
+            callSendAPI(messageDatafiniAndroid);
+            
+            androidJob.cancel(); 
+        }
+    else if(payload==="AnnulerIos")
+        {
+            var messageDataannulerIOS=
+                {
+                    recipient:
+                    {
+                        id:senderId
+                    },
+                    message:{
+                        text:"Domage que tu quitte si tô ! on au aurai pu développer des Applications IOS  ensemble dans le futur !Portes-toi bien !"
+                    }
+                };
+            callSendAPI(messageDataannulerIOS);
+            iosJob.cancel();
+        }
+    else if(payload==="finiIos")
+        {
+              var mail="ouedmenga@gmail.com";
+            var messageDatafiniIos={
+                
+                recipient:{
+                    id:senderId
+                },
+                message:{
+                    text:"Très bien Joué , Reste à l'écoute ! je te reviendra avec de gros contrat mais avant envois moi un mail au "+mail+" avec ton certicat en fichier attaché."
+                }
+            };
+            callSendAPI(messageDatafiniIos);
+            
+            iosJob.cancel();
+            
         }
 }
 
