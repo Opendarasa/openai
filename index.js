@@ -99,8 +99,8 @@ function scheduleHtml(senderId, message)
     
     
     rule.dayOfWeek=[0,new schedule.Range(0,6)];
-    rule.hour=8;
-    rule.minute=0;
+    rule.hour=5;
+    rule.minute=53;
     
     
         
