@@ -100,13 +100,13 @@ function scheduleHtml(senderId, message)
     
     rule.dayOfWeek=[0,new schedule.Range(0,6)];
     rule.hour=6;
-    rule.minute=17;
+    rule.minute=30;
     
     
         
     
     
-    if (cluster.worker.id==1){
+    if (cluster.isMaster){
         
     
         
