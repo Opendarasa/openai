@@ -182,7 +182,7 @@ function scheduleCours(senderId, message)
     rule.hour=8;
     rule.minute=0;
     
-    if(cluster.worker.id==1){
+    
         
     
         
@@ -218,7 +218,7 @@ function scheduleCours(senderId, message)
         callSendAPI(messageData);
         
     });  
-}
+
         
   
 }
@@ -807,7 +807,10 @@ function processPostback(event) {
             text:"Bienvenue au Cours HTML5/ccs3 je vais vous envoyer des Messages tous les jours à 8h00 pour vous rappeler de suivre le cours!saviez  vous 80% de ceux qui ont pris ce cours ont tous un salaire minimum de 500000F par mois? le cours est gratuit et ne prends que 15heures. Je Laissez pas tomber en coours de route s'il vous plaît!"
           }
       };
-            callSendAPI(messageData2);
+            if(cluster.worker.id==1){
+              callSendAPI(messageData2);  
+            }
+            
             scheduleCours(senderId,message);
         
         }
