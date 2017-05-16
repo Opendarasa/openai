@@ -4,7 +4,8 @@ const request =require('request')
 const apiaiApp= require('apiai')('90b3e04e3f5c46098831410ade6fcb8b')
 const schedule =require('node-schedule')
  const  j=null;
-const rule = new schedule.RecurrenceRule();  
+const rule = new schedule.RecurrenceRule(); 
+const cluster=require('cluster');
 
 const app=express()
 const token= process.env.FB_VERIFY_TOKEN
@@ -181,6 +182,9 @@ function scheduleCours(senderId, message)
     rule.hour=8;
     rule.minute=0;
     
+    if(cluster.worker.id==1){
+        
+    
         
            j= schedule.scheduleJob(rule, function(){
         var messageData=
@@ -214,14 +218,9 @@ function scheduleCours(senderId, message)
         callSendAPI(messageData);
         
     });  
+}
         
-     
-        
-        
-    
-    
-    
-    
+  
 }
 
 //postback handling function start
