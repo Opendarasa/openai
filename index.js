@@ -123,11 +123,11 @@ function start(){
 function scheduleHtml(senderId, message)
 {
     
-    start();
+    //start();
     
     rule.dayOfWeek=[0,new schedule.Range(0,6)];
     rule.hour=7;
-    rule.minute=0;
+    rule.minute=7;
     
     
         
