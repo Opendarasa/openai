@@ -1,4 +1,5 @@
 const express= require ('express')
+const http=require('http')
 const bodyParser= require('body-parser')
 const request =require('request')
 const apiaiApp= require('apiai')('90b3e04e3f5c46098831410ade6fcb8b')
@@ -16,6 +17,7 @@ const ruleCplus = new schedule.RecurrenceRule();
 const ruleAndroid = new schedule.RecurrenceRule();
 const ruleIos = new schedule.RecurrenceRule();
 const cluster=require('cluster');
+const worker=null;
 
 const app=express()
 const token= process.env.FB_VERIFY_TOKEN
@@ -89,14 +91,39 @@ app.post('/webhook', function (req, res) {
     res.sendStatus(200);
   }
 });
-
+/* ************************************
+   *     create workers             *              
+   *************************************/
+function start(){
+    if(cluster.isMaster)
+        {
+           for(var i=0;i<6;i++)
+               {
+                   
+                   worker=cluster.fork();
+               }
+            worker.on('death',function(){
+               console.log('worker '+worker.pid+' died'); 
+            });
+        }
+    else{
+        http.Server(function(req,res){
+            
+           res.writeHead(200);
+            res.end("hello word\n");
+        }).listen(8000);
+        
+    }
+    
+    
+}
 /* ************************************
    *     HTml  scheduler              *              
    *************************************/
 function scheduleHtml(senderId, message)
 {
     
-    
+    start();
     
     rule.dayOfWeek=[0,new schedule.Range(0,6)];
     rule.hour=6;
@@ -106,8 +133,6 @@ function scheduleHtml(senderId, message)
         
     
     
-    if (cluster.isMaster){
-        
     
         
            j= schedule.scheduleJob(rule, function(){
@@ -141,7 +166,7 @@ function scheduleHtml(senderId, message)
        };
         callSendAPI(messageData);
         
-    }); } 
+    });  
 
         
   
