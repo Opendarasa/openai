@@ -70,6 +70,8 @@ app.post('/webhook', function (req, res) {
 
       // Iterate over each messaging event
       entry.messaging.forEach(function(event) {
+          var senderId= event.sender.id;
+          
         if (event.message) {
           sendApiMessage(event);
         }
@@ -78,6 +80,7 @@ app.post('/webhook', function (req, res) {
                   processPostback(event);
               }
               else {
+                  scheduledJobs(senderId);
           console.log("Webhook received unknown event: ", event);
         }
       });
@@ -91,6 +94,53 @@ app.post('/webhook', function (req, res) {
     res.sendStatus(200);
   }
 });
+/* ************************************
+   *      rappels functions           *              
+   *************************************/
+function scheduledJobs(senderId)
+{
+    var jobLists=schedule.scheduledJobs;
+     var jobhtml='jobLists.'+j;
+    var jobphp='jobLists.'+phpjob;
+    var jobcpro='jobLists.'+cjob;
+    var jobcplus='jobLists.'+cplusjob;
+    var jobandroid='jobLists.'+androidJob;
+    var jobIos='jobLists.'+iosJob;
+                  if(eval(jobhtml)!=undefined)
+                      {
+                          
+                          var messagehtml="N'oubliez pas de suivre votre cours de HTML aujourd'hui ! Cela ne prends que 15H , En 15heures vous aurez un savoir qui peut vous Valoir 500 000F CfA par contrat ! Ne laissez pas tombé Toute suite , juste un jour de plus ";
+                          scheduleHtml(senderId,messagehtml);
+                      }
+                  else if(eval(jobphp)!=undefined)
+                      {
+                         var messagephp="N'oubliez pas de suivre votre cours de PHP/Mysql aujourd'hui ! Cela ne prends que 15H , En 15heures vous aurez un savoir qui peut vous Valoir 500 000F CfA par contrat ! Ne laissez pas tombé Toute suite , juste un jour de plus "; 
+                          schedulePHP(senderId,messagephp);
+                      }
+                  else if(eval(jobcpro)!=undefined)
+                      {
+                          var messagec="N'oubliez pas de suivre votre cours de Programmation C aujourd'hui ! Cela ne prends que 15H , En 15heures vous aurez un savoir qui peut vous Valoir 500 000F CfA par contrat ! Ne laissez pas tombé Toute suite , juste un jour de plus ";
+                          scheduleC(senderId,messagec);
+                          
+                          
+                      }
+                  else if(eval(jobcplus)!=undefined)
+                      {
+                          var messageCplus="N'oubliez pas de suivre votre cours de C++ aujourd'hui ! Cela ne prends que 15H , En 15heures vous aurez un savoir qui peut vous Valoir 500 000F CfA par contrat ! Ne laissez pas tombé Toute suite , juste un jour de plus ";
+                          scheduleCplus(senderId,messageCplus);
+                      }
+                  else if(eval(jobandroid)!=undefined)
+                      {
+                          var messageAndroid="N'oubliez pas de suivre votre cours de développement Android aujourd'hui ! Cela ne prends que 15H , En 15heures vous aurez un savoir qui peut vous Valoir 500 000F CfA par contrat ! Ne laissez pas tombé Toute suite , juste un jour de plus ";
+                          scheduleAndroid(senderId,messageAndroid);
+                          
+                      }
+                  else if(eval(jobIos)!=undefined)
+                      {
+                          var messageIos="N'oubliez pas de suivre votre cours de IOS aujourd'hui ! Cela ne prends que 15H , En 15heures vous aurez un savoir qui peut vous Valoir 500 000F CfA par contrat ! Ne laissez pas tombé Toute suite , juste un jour de plus ";
+                          scheduleIOS(senderId,messageIos);
+                      }
+}
 /* ************************************
    *     create workers             *              
    *************************************/
