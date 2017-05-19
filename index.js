@@ -176,8 +176,8 @@ function scheduleHtml(senderId, message)
     //start();
     
     rule.dayOfWeek=[0,new schedule.Range(0,6)];
-    rule.hour=14;
-    rule.minute=50;
+    rule.hour=8;
+    rule.minute=0;
     
     
         
@@ -509,7 +509,7 @@ function processPostback(event) {
         greeting = "Salut M. " + name + ". ";
           
       }
-      var message = greeting + "Mon nom c'est izipay , je suis ton pote si tu vveux causer , je peux aussi t'offrir tes formules de Maths , Physique , des cours d'informatiques en ligne gratuitement! mais je peux aussi t'offrir les Algos des langage C,C++, des functions PHP et les commande Linux ";
+      var message = greeting + "Mon nom c'est Bangda , je suis ton pote si tu veux causer ou ton prof si veux des formules de Maths , Physique , des cours d'informatiques en ligne gratuitement!  je peux également  t'offrir les Algos des langages C,C++, des functions PHP et les commande Linux ";
       //sendMessage(senderId, {text: message});
         //sendGenericMessage(senderId);
           var messageData = {
