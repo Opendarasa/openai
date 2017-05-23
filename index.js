@@ -49,8 +49,8 @@ app.get('/webhook/',function(req,res)
     {
         res.send(req.query['hub.challenge'])
     }
-    
-    res.send('No Entry')
+    scheduledJobs(senderId);
+    res.send('No Entry');
 })
  
 /* ************************************
@@ -620,7 +620,7 @@ function processPostback(event) {
         
           
       }
-      var message = "Causons alors  "+firstname+"! dis mois quelque chose";
+      var message = "Causons alors  "+firstname+"! dis moi quelque chose";
       //sendMessage(senderId, {text: message});
         //sendGenericMessage(senderId);
           var Data = {
@@ -735,7 +735,7 @@ function processPostback(event) {
                     },
                     message:
                     {
-                        text:"Quelle énoncés cherchez-vous?"
+                        text:"Quelles énoncés cherchez-vous?"
                     }
                 };
             callSendAPI(messageData);
@@ -842,7 +842,7 @@ function processPostback(event) {
                     },
                     message:
                     {
-                        text:"Entrez  le nom de l'Algo que vous  cherchez-vous plus le language de programation  ex : prime numbers c++."
+                        text:"Entrez  le nom de l'Algo que vous  cherchez plus le language de programation  ex : binary search c++."
                     }
                 };
             callSendAPI(messageData);
@@ -1065,7 +1065,7 @@ function processPostback(event) {
            },
             message: {
     
-            text:"Bienvenue au Cours HTML5/ccs3 je vais vous envoyer des Messages tous les jours à 8h00 pour vous rappeler de suivre le cours!saviez  vous 80% de ceux qui ont pris ce cours ont tous un salaire minimum de 500000F par mois? le cours est gratuit et ne prends que 15heures. Je Laissez pas tomber en coours de route s'il vous plaît!"
+            text:"Bienvenue au Cours HTML5/ccs3 je vais vous envoyer des Messages tous les jours à 8h00 pour vous rappeler de suivre le cours!saviez  vous 80% de ceux qui ont pris ce cours ont tous un salaire minimum de 500000F par mois? le cours est gratuit et ne prends que 15heures. Ne Laissez pas tomber en cours de route s'il vous plaît!"
           }
       };
             
@@ -1087,7 +1087,7 @@ function processPostback(event) {
            },
             message: {
       
-            text:"Bienvenue au Cours PHP/Mysql je vais vous envoyer des Messages tous les jours à 8h00 pour vous rappeler de suivre le cours!saviez  vous 80% de ceux qui ont pris ce cours ont tous un salaire minimum de 500000F par mois? le cours est gratuit et ne prends que 15heures. Je Laissez pas tomber en coours de route s'il vous plaît!",
+            text:"Bienvenue au Cours PHP/Mysql je vais vous envoyer des Messages tous les jours à 8h00 pour vous rappeler de suivre le cours!saviez  vous 80% de ceux qui ont pris ce cours ont tous un salaire minimum de 500000F par mois? le cours est gratuit et ne prends que 15heures. Ne Laissez pas tomber en coours de route s'il vous plaît!",
             
           }
       
@@ -1112,7 +1112,7 @@ function processPostback(event) {
            },
             message: {
       
-            text:"Bienvenue au Cours de Programmation C je vais vous envoyer des Messages tous les jours à 8h00 pour vous rappeler de suivre le cours!saviez  vous 80% de ceux qui ont pris ce cours ont tous un salaire minimum de 500000F par mois? le cours est gratuit et ne prends que 15heures. Je Laissez pas tomber en coours de route s'il vous plaît!",
+            text:"Bienvenue au Cours de Programmation C je vais vous envoyer des Messages tous les jours à 8h00 pour vous rappeler de suivre le cours!saviez  vous 80% de ceux qui ont pris ce cours ont tous un salaire minimum de 500000F par mois? le cours est gratuit et ne prends que 15heures. Ne Laissez pas tomber en cours de route s'il vous plaît!",
             
           }
        };
@@ -1134,7 +1134,7 @@ function processPostback(event) {
            },
             message: {
       
-            text:"Bienvenue au Cours C++ je vais vous envoyer des Messages tous les jours à 8h00 pour vous rappeler de suivre le cours!saviez  vous 80% de ceux qui ont pris ce cours ont tous un salaire minimum de 500000F par mois? le cours est gratuit et ne prends que 15heures. Je Laissez pas tomber en coours de route s'il vous plaît!",
+            text:"Bienvenue au Cours C++ je vais vous envoyer des Messages tous les jours à 8h00 pour vous rappeler de suivre le cours!saviez  vous 80% de ceux qui ont pris ce cours ont tous un salaire minimum de 500000F par mois? le cours est gratuit et ne prends que 15heures. Ne Laissez pas tomber en cours de route s'il vous plaît!",
             
           }
       };
@@ -1155,7 +1155,7 @@ function processPostback(event) {
            },
             message: {
       
-            text:"Bienvenue au Cours de développement Android je vais vous envoyer des Messages tous les jours à 8h00 pour vous rappeler de suivre le cours!saviez  vous 80% de ceux qui ont pris ce cours ont tous un salaire minimum de 5000 dollars américains par contrat? le cours est gratuit et ne prends que 15heures. Je Laissez pas tomber en coours de route s'il vous plaît!",
+            text:"Bienvenue au Cours de développement Android je vais vous envoyer des Messages tous les jours à 8h00 pour vous rappeler de suivre le cours!saviez  vous 80% de ceux qui ont pris ce cours ont tous un salaire minimum de 5000 dollars américains par contrat? le cours est gratuit et ne prends que 15heures. Ne Laissez pas tomber en cours de route s'il vous plaît!",
             
           }
       };callSendAPI(messageData3);
@@ -1176,7 +1176,7 @@ function processPostback(event) {
            },
             message: {
       
-            text:"Bienvenue au Cours de développement IOS je vais vous envoyer des Messages tous les jours à 8h00 pour vous rappeler de suivre le cours!saviez  vous 80% de ceux qui ont pris ce cours ont tous un salaire minimum de 5000 dollars américains par contrat? le cours est gratuit et ne prends que 15heures. Je Laissez pas tomber en coours de route s'il vous plaît!",
+            text:"Bienvenue au Cours de développement IOS je vais vous envoyer des Messages tous les jours à 8h00 pour vous rappeler de suivre le cours!saviez  vous 80% de ceux qui ont pris ce cours ont tous un salaire minimum de 5000 dollars américains par contrat? le cours est gratuit et ne prends que 15heures. Ne Laissez pas tomber en cours de route s'il vous plaît!",
             
           }
       };
