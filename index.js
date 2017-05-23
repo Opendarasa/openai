@@ -73,7 +73,7 @@ app.post('/webhook', function (req, res) {
           var senderId= event.sender.id;
           
         if (event.message) {
-          sendApiMessage(event);
+          //sendApiMessage(event);
         }
           else if (event.postback)
               {
