@@ -10,8 +10,8 @@ const request =require('request')
 
 
 const app=express()
-const token= 'token'
-const access= 'Acess'
+const token= 'FB_token'
+const access= 'FB_access'
 
 app.set('port',(process.env.PORT||5000))
 
@@ -122,17 +122,17 @@ function sendApiMessage(event)
     let aitext='';
     switch(text)
     {
-       case "hi":
-         aitext="hi";
+       case "welcome message":
+         aitext="response to welcome";
         callSendAPI(sender,aitext);
         break;
 
-        case "hello":
-         aitext="response to hello";
+        case "start conversation":
+         aitext="response to start conversation";
           callSendAPI(sender,aitext);
         break;
-        case " blblabla":
-          aitext="response to blblabla";
+        case " continue conversation":
+          aitext="response to continue conversation";
           callSendAPI(sender,aitext);
         break;
         // insert more conversation here //
